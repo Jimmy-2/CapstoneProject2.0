@@ -104,7 +104,7 @@ public class AlertsFragment extends Fragment {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //Toast.makeText(getContext(), etSearchAlert.getText().toString(), Toast.LENGTH_SHORT).show();
                     goToAddFragment();
-                    return true;
+
                 }
                 return false;
             }

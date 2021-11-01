@@ -140,7 +140,7 @@ public class AlertsAddFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     addPriceToDB();
-                    return true;
+
                 }
                 return false;
             }

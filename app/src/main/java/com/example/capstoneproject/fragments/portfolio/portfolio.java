@@ -114,7 +114,7 @@ public class portfolio extends Fragment {
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                mysecondDB.addentry("500","10/31/2021");
+                mysecondDB.addentry("500","5 10 200");
 
     }
         });

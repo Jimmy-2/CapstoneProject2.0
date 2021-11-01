@@ -11,11 +11,11 @@ import androidx.annotation.Nullable;
 
 public class databaseforsecondchartportfolio extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "databaseforportfoliograph.db";
+    private static final String DATABASE_NAME = "databaseforsecondportfoliograph.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "my_library";
     private static final String COLUMN_ID = "id";
-    private static final String AMOUNT = "profile_balance";
+    private static final String AMOUNT = "amount";
     private static final String DATE_ENTRY = "date_entry";
 
 
@@ -27,7 +27,7 @@ public class databaseforsecondchartportfolio extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +  AMOUNT + " TEXT, " +  DATE_ENTRY + " TEXT);";
+        String query = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + AMOUNT + " TEXT, " + DATE_ENTRY + " TEXT);";
         db.execSQL(query);
     }
 

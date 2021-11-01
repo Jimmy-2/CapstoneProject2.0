@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,23 +38,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class NewsFragment extends Fragment {
     public static final String TAG = "MainActivity";
     EditText tvSearch;
     RecyclerView rvArticles;
+    Button btnSearch;
     SwipeRefreshLayout swipeRefreshLayout;
     List<Article> articles;
     ArticleAdapter articleAdapter;
-    AsyncHttpClient client;
+    //AsyncHttpClient client;
+    String url ;
     int numItems = 20;
     String tickers;
 
     private RequestQueue requestQueue;
 
     SharedPreferences sharedPreferences;
-    String url ;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -77,10 +77,9 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         tvSearch = (EditText) view.findViewById(R.id.tvSearch);
         rvArticles = view.findViewById(R.id.rvArticles);
+        btnSearch = view.findViewById(R.id.btnSearch);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         articles = new ArrayList<>();
         articleAdapter = new ArticleAdapter(this.getContext(), articles);
@@ -115,6 +114,14 @@ public class NewsFragment extends Fragment {
         });
 
         requestQueue.add(request);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jsonParse("");
+
+            }
+        });
 
         tvSearch.setOnKeyListener(new View.OnKeyListener(){
             @Override

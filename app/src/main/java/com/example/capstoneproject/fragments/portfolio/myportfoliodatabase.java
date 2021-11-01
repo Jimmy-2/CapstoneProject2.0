@@ -20,11 +20,18 @@ public class myportfoliodatabase extends SQLiteOpenHelper {
     private static final String COLUMN_TITLE = "stock_title";
     private static final String COLUMN_AUTHOR = "stock_price";
     private static final String COLUMN_PAGES = "stock_quantity";
-    private static final String stock_category = "sector";
+    private static final String STOCK_CATEGORY = "sector";
 
     public myportfoliodatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+    }
+    void changecategory(String row_id,String category){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(STOCK_CATEGORY,category);
+        long result = db.update(TABLE_NAME, cv, "id=?", new String[]{row_id});
+
     }
 
     void updateData(String row_id, String title, String author, String pages){
@@ -39,7 +46,7 @@ public class myportfoliodatabase extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_AUTHOR + " TEXT, " + COLUMN_PAGES + " INTEGER);";
+        String query = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_AUTHOR + " TEXT, " + COLUMN_PAGES + " INTEGER, " + STOCK_CATEGORY + " TEXT);";
         db.execSQL(query);
     }
 
@@ -48,6 +55,7 @@ public class myportfoliodatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
 
     void addstock(String Title,String Price, int Quantity,String sector){
         SQLiteDatabase db = this.getWritableDatabase();

@@ -26,10 +26,12 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.capstoneproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -49,6 +51,7 @@ public class portfolio extends Fragment {
 
     databaseforportfoliograph portfolioDB;
     myportfoliodatabase myDB;
+    databaseforsecondchartportfolio mysecondDB;
     ArrayList<String> book_id, book_title, book_author, book_pages;
 
     FloatingActionButton gotofragment2; //possibly going to be useless
@@ -81,12 +84,13 @@ public class portfolio extends Fragment {
         portfolioDB = new databaseforportfoliograph(getActivity());
         //uncomment for actual release of the app ig
         //updatestock();
+        mysecondDB = new databaseforsecondchartportfolio(getActivity());
         book_id = new ArrayList<>();
         book_author = new ArrayList<>();
         book_title = new ArrayList<>();
         book_pages = new ArrayList<>();
         testbutton = view.findViewById(R.id.refreshbutton);
-       // testbutton2 = view.findViewById(R.id.teestbutton);
+        testbutton2 = view.findViewById(R.id.teestbutton);
         storeDatainArrays();
         recyclerview = view.findViewById(R.id.recycleviewstocks);
         portfoliostockadapter = new portfoliostockrecycleradapter(getActivity(),getActivity(), book_id, book_title, book_author, book_pages);
@@ -106,47 +110,15 @@ public class portfolio extends Fragment {
                 updatestock();
         }
         });
-        /*
+
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                System.out.println("test2");
+                mysecondDB.addentry("500","5 10 200");
 
     }
         });
-        */
 
-/*
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-
-            @Override
-            public void run() {
-                updatestock();
-
-                tryredraw();
-            }
-
-        }, 60000, 61000);
-        Timer timer2 = new Timer();
-        timer2.scheduleAtFixedRate(new TimerTask() {
-
-                @Override
-                public void run() {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tryredraw();
-                        }
-                    });
-
-
-                }
-
-        }, 5000, 65000);
-
-
- */
         return view;
     }
 
@@ -183,7 +155,7 @@ public class portfolio extends Fragment {
                             JSONObject results = jsonObject;
                             JSONObject p = results.getJSONObject(toUpperCase(popup_stockname.getText().toString().trim()));
                             p = p.getJSONObject("quote");
-                            myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("latestPrice"), Integer.parseInt(popup_stockamount.getText().toString()),returnsector(popup_stockname.getText().toString().trim()));
+                            myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("latestPrice"), Integer.parseInt(popup_stockamount.getText().toString()),"a");
                             tryredraw();
 
                         } catch (JSONException e) {
@@ -208,18 +180,21 @@ public class portfolio extends Fragment {
             }
         });
     }
-
-    String returnsector(String sector){
+/*
+    void fixsector(String sector){
         AsyncHttpClient client = new AsyncHttpClient();
-        String testapi = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=d610507a84e6b54992411a018867a0b7";
+
+        String testapi = "https://financialmodelingprep.com/api/v3/profile/" + sector + "?apikey=d610507a84e6b54992411a018867a0b7";
         System.out.println(testapi);
         client.get(testapi, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                JSONObject jsonObject = json.jsonObject;
+                JSONArray jsonObject = json.jsonArray;
                 try {
-                    JSONObject results = jsonObject;
-                    JSONObject p = results.getJSONObject("sector");
+                JSONObject p = jsonObject.getJSONObject(0);
+                String pa = p.getString("sector");
+
+
                 } catch (JSONException e) {
                     System.out.println("JSONEXCEPTION1");
                     e.printStackTrace();
@@ -233,8 +208,9 @@ public class portfolio extends Fragment {
 
 
 
-        return "a";
     }
+
+*/
 
 
 

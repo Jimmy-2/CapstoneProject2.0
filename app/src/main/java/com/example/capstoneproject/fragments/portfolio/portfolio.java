@@ -133,8 +133,16 @@ public class portfolio extends Fragment {
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                mysecondDB.addentry("500","5 10 200");
-
+                mysecondDB.addentry("12133.32","10/23/2021");
+                mysecondDB.addentry("12133.32","10/24/2021");
+                mysecondDB.addentry("14213.53","10/25/2021");
+                mysecondDB.addentry("11231.91","10/26/2021");
+                mysecondDB.addentry("17130.23","10/27/2021");
+                mysecondDB.addentry("11425.12","10/28/2021");
+                mysecondDB.addentry("7130.32","10/29/2021");
+                mysecondDB.addentry("7130.32","10/30/2021");
+                mysecondDB.addentry("7130.32","10/30/2021");
+                mysecondDB.addentry("0","11/01/2021");
     }
         });
 

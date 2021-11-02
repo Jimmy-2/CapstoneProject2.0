@@ -31,17 +31,22 @@ import com.example.capstoneproject.R;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +62,9 @@ public class portfolio extends Fragment {
 
     //Graphs - Ariq
     TextView chartTitleTextView2;
-    LineChart portfolioChart;
+    LineChart mChart;
+    ArrayList<Entry> x;
+    ArrayList<String> y;
     // - end
 
     //used for the popup menu
@@ -133,15 +140,15 @@ public class portfolio extends Fragment {
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                mysecondDB.addentry("12133.32","10/23/2021");
-                mysecondDB.addentry("12133.32","10/24/2021");
-                mysecondDB.addentry("14213.53","10/25/2021");
-                mysecondDB.addentry("11231.91","10/26/2021");
-                mysecondDB.addentry("17130.23","10/27/2021");
-                mysecondDB.addentry("11425.12","10/28/2021");
-                mysecondDB.addentry("7130.32","10/29/2021");
-                mysecondDB.addentry("7130.32","10/30/2021");
-                mysecondDB.addentry("7130.32","10/30/2021");
+                mysecondDB.addentry("12133","10/23/2021");
+                mysecondDB.addentry("12133","10/24/2021");
+                mysecondDB.addentry("14213","10/25/2021");
+                mysecondDB.addentry("11231","10/26/2021");
+                mysecondDB.addentry("1713","10/27/2021");
+                mysecondDB.addentry("11425","10/28/2021");
+                mysecondDB.addentry("7130","10/29/2021");
+                mysecondDB.addentry("7130","10/30/2021");
+                mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("0","11/01/2021");
     }
         });
@@ -156,7 +163,26 @@ public class portfolio extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         chartTitleTextView2 = view.findViewById(R.id.chartTitleTextView2);
-        portfolioChart = view.findViewById(R.id.lineChart);
+        mChart = (LineChart)view.findViewById(R.id.lineChart);
+
+        mChart.setDrawGridBackground(false);
+        mChart.setDescription("");
+        mChart.setTouchEnabled(true);
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(true);
+        mChart.setPinchZoom(true);
+        mChart.getXAxis().setTextSize(15f);
+        mChart.getAxisLeft().setTextSize(15f);
+
+        XAxis xl = mChart.getXAxis();
+        xl.setAvoidFirstLastClipping(true);
+
+
+        YAxis rightAxis = mChart.getAxisRight();
+        rightAxis.setEnabled(false);
+        Legend l = mChart.getLegend();
+        l.setForm(Legend.LegendForm.LINE);
+
 
         ArrayList<String> id = new ArrayList<>();
         ArrayList<String> balance = new ArrayList<>();
@@ -169,16 +195,34 @@ public class portfolio extends Fragment {
         //chartTitleTextView2.setText();
         storeDataInArraysPortfolio(id, balance, date_entry);
 
-        ArrayList<Entry> portfolioVals = new ArrayList<Entry>();
-        ArrayList portfolioDateTimes = new ArrayList();
         System.out.print(date_entry+"HELLO");
+
+        x = new ArrayList<Entry>();
+        y = new ArrayList<String>();
+
         for(int i = 0; i < balance.size(); i++) {
             float xVal = Float.valueOf(balance.get(i));
-            portfolioVals.add(new Entry(i, (int) xVal));
-            portfolioDateTimes.add(date_entry.get(i));
+            x.add(new Entry(xVal, i));
+            y.add(date_entry.get(i));
         }
 
-        LineDataSet portfolioSet = new LineDataSet (portfolioVals, "Porfolio Balance Chart");
+
+
+
+        LineDataSet balanceset = new LineDataSet(x, "hello");
+
+        balanceset.setLineWidth(1.5f);
+        balanceset.setCircleRadius(4f);
+        LineData data = new LineData(y, balanceset);
+        mChart.setData(data);
+        mChart.invalidate();
+
+
+
+
+
+
+        /*
         portfolioChart.animateY(0);
         LineData data = new LineData(portfolioDateTimes, portfolioSet);
         //portfolioSet .setColors(colors);
@@ -187,6 +231,21 @@ public class portfolio extends Fragment {
 
         portfolioChart.setDescription("Portfolio Balance Chart");
         portfolioChart.setData(data);
+
+        */
+
+    }
+
+    private ArrayList<Entry> dataValues1() {
+        ArrayList<Entry> dataVals = new ArrayList<Entry>();
+        dataVals.add(new Entry(0, 13333));
+        dataVals.add(new Entry(1, 14333));
+        dataVals.add(new Entry(2, 15333));
+        dataVals.add(new Entry(3, 11333));
+        dataVals.add(new Entry(4, 7333));
+        dataVals.add(new Entry(5, 0));
+
+        return dataVals;
     }
 
     // From Jimmy's code

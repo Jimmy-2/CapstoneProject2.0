@@ -157,8 +157,6 @@ public class portfolio extends Fragment {
 
         chartTitleTextView2 = view.findViewById(R.id.chartTitleTextView2);
         portfolioChart = view.findViewById(R.id.lineChart);
-        portfolioChart.setTouchEnabled(true);
-        portfolioChart.setPinchZoom(true);
 
         ArrayList<String> id = new ArrayList<>();
         ArrayList<String> balance = new ArrayList<>();
@@ -171,12 +169,12 @@ public class portfolio extends Fragment {
         //chartTitleTextView2.setText();
         storeDataInArraysPortfolio(id, balance, date_entry);
 
-        ArrayList portfolioVals = new ArrayList();
+        ArrayList<Entry> portfolioVals = new ArrayList<Entry>();
         ArrayList portfolioDateTimes = new ArrayList();
         System.out.print(date_entry+"HELLO");
         for(int i = 0; i < balance.size(); i++) {
             float xVal = Float.valueOf(balance.get(i));
-            portfolioVals.add(new Entry(0, (int) xVal));
+            portfolioVals.add(new Entry(i, (int) xVal));
             portfolioDateTimes.add(date_entry.get(i));
         }
 

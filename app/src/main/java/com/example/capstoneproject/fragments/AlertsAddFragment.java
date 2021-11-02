@@ -91,12 +91,14 @@ public class AlertsAddFragment extends Fragment {
         swipeContainerAdd.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
                 //refresh AlertsAddFragment
                 AlertsAddFragment newFragment = new AlertsAddFragment();
                 Bundle args = new Bundle();
                 args.putString("ticker", stock);
                 newFragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, newFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, newFragment).addToBackStack(null).commit();
                 swipeContainerAdd.setRefreshing(false);
             }
         });
@@ -169,7 +171,7 @@ public class AlertsAddFragment extends Fragment {
     }
 
     void getStockPrice(String stock) {
-        String TEST_API = "https://api.twelvedata.com/quote?symbol="+stock+"&interval=1day&apikey=c2c894e47847490993e8704e2fe75dd6";
+        String TEST_API = "https://api.twelvedata.com/quote?symbol="+stock+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(TEST_API, new JsonHttpResponseHandler() {
             @Override

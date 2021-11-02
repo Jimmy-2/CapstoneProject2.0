@@ -88,9 +88,9 @@ public class AlertsDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed to update prices!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Failed to update prices!", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
         }
 
     }

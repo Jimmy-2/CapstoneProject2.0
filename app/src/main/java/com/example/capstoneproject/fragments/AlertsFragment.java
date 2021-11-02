@@ -188,6 +188,7 @@ public class AlertsFragment extends Fragment {
     }
 
     public void getNewCurrentPrice() {
+
         AlertsDatabaseHelper alertDB = new AlertsDatabaseHelper(getActivity());
         for(int i = 0; i < alertDB.getAlertsCount(); i++) {
             alertHashTable.put(String.valueOf(symbol.get(i)), "0");
@@ -214,6 +215,7 @@ public class AlertsFragment extends Fragment {
                 JSONObject jsonObject = json.jsonObject;
                 String testing = "";
                 try {
+                    Toast.makeText(getContext(), "Updated Successfully!", Toast.LENGTH_SHORT).show();
                     //for testing
                     //refresh the prices of here
 
@@ -231,6 +233,7 @@ public class AlertsFragment extends Fragment {
                         alertDB.updatePriceDatabase(String.valueOf(alert_id.get(i)), alertHashTable.get(symbol.get(i)));
                     }
                     //restart the current fragment with a new version in order to show the updated data
+
                     getFragmentManager().beginTransaction().replace(R.id.flContainer, new AlertsFragment()).commit();
 
 
@@ -254,6 +257,7 @@ public class AlertsFragment extends Fragment {
 
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
+                    Toast.makeText(getContext(), "Update failed! API calls ran out!", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
 
 

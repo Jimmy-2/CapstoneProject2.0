@@ -3,6 +3,7 @@ package com.example.capstoneproject.fragments.portfolio;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -71,5 +72,14 @@ public class databaseforsecondchartportfolio extends SQLiteOpenHelper {
         }else{
             Toast.makeText(context, "Added Successfully", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    //get count of rows of alerts database
+    public long getAlertsCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        db.close();
+        return count;
     }
 }

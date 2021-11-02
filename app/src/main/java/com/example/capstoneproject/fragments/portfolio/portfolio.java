@@ -4,6 +4,7 @@ import static android.icu.lang.UCharacter.toUpperCase;
 
 import android.app.AlertDialog;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -18,12 +19,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.capstoneproject.AlertsAdapter;
+import com.example.capstoneproject.AlertsDatabaseHelper;
 import com.example.capstoneproject.R;
+import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.CandleData;
+import com.github.mikephil.charting.data.CandleDataSet;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -32,6 +44,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -40,6 +53,12 @@ import okhttp3.Headers;
 
 
 public class portfolio extends Fragment {
+
+
+    //Graphs - Ariq
+    TextView chartTitleTextView2;
+    LineChart portfolioChart;
+    // - end
 
     //used for the popup menu
     private AlertDialog.Builder dialogbuilder;
@@ -121,6 +140,66 @@ public class portfolio extends Fragment {
 
         return view;
     }
+
+
+    // Graph code - Ariq
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        chartTitleTextView2 = view.findViewById(R.id.chartTitleTextView2);
+        portfolioChart = view.findViewById(R.id.lineChart);
+        portfolioChart.setTouchEnabled(true);
+        portfolioChart.setPinchZoom(true);
+
+        ArrayList<String> id = new ArrayList<>();
+        ArrayList<String> balance = new ArrayList<>();
+        ArrayList<String> date_entry = new ArrayList<>();
+
+        List<Integer> colors = new ArrayList<>();
+        int greeen  = Color.rgb(110,190,102);
+        int reed = Color.rgb(211,87,44);
+
+        //chartTitleTextView2.setText();
+        storeDataInArraysPortfolio(id, balance, date_entry);
+
+        ArrayList portfolioVals = new ArrayList();
+        ArrayList portfolioDateTimes = new ArrayList();
+        System.out.print(date_entry+"HELLO");
+        for(int i = 0; i < balance.size(); i++) {
+            float xVal = Float.valueOf(balance.get(i));
+            portfolioVals.add(new Entry(0, (int) xVal));
+            portfolioDateTimes.add(date_entry.get(i));
+        }
+
+        LineDataSet portfolioSet = new LineDataSet (portfolioVals, "Porfolio Balance Chart");
+        portfolioChart.animateY(0);
+        LineData data = new LineData(portfolioDateTimes, portfolioSet);
+        //portfolioSet .setColors(colors);
+        Legend legend = portfolioChart.getLegend();
+        legend.setEnabled(false); // hide legend
+
+        portfolioChart.setDescription("Portfolio Balance Chart");
+        portfolioChart.setData(data);
+    }
+
+    // From Jimmy's code
+    void storeDataInArraysPortfolio(ArrayList<String> id, ArrayList<String> balance, ArrayList<String> date_entry) {
+        Cursor cursor = mysecondDB.readAllData();
+        if(cursor.getCount() == 0) {
+            //Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+        }else {
+            while(cursor.moveToNext()) {
+                id.add(cursor.getString(0));
+                balance.add(cursor.getString(1));
+                date_entry.add(cursor.getString(2));
+
+
+            }
+        }
+    }
+
+
 
 
     //this is for the add stock popup

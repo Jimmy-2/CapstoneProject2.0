@@ -171,8 +171,9 @@ public class AlertsFragment extends Fragment {
 
 
 
+    //_id, symbol, name, currentPrice, alertPrice
     void storeDataInArrays() {
-        Cursor cursor = alertDB.readAllData();
+        Cursor cursor = alertDB.readAllDataSorted("alertPrice", "Asc");
         if(cursor.getCount() == 0) {
             //Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
         }else {

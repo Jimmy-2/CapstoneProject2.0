@@ -66,8 +66,8 @@ public class AlertsDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor readAllData(){
-        String query = "SELECT * FROM " + TABLE_NAME;
+    public Cursor readAllDataSorted(String col, String order){
+        String query = "SELECT * FROM " + TABLE_NAME+ " Order By "+ col + " "+ order;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;

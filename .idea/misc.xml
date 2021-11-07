@@ -20,7 +20,7 @@
         <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/layout/alert_row.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/layout/fragment_alerts.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/layout/fragment_alerts.xml" value="0.3312202852614897" />
         <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/layout/fragment_alerts_add.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/layout/fragment_news.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/layout/fragment_portfolio.xml" value="0.33" />
@@ -34,9 +34,6 @@
         <entry key="..\:/Users/kingl/AndroidStudioProjects/StockAlertsAppCapstone/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.36666666666666664" />
       </map>
     </option>
-  </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_test.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

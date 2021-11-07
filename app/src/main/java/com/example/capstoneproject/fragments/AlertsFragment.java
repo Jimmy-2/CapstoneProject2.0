@@ -140,27 +140,27 @@ public class AlertsFragment extends Fragment {
         if(sortSettings.get(1).equals(String.valueOf(1))) {
             sortingCol = "_id";
             sortingOrder = "Asc";
-            sortItems = new String[] { "DateAsc", "DateDesc", "NameAsc", "NameDesc","PriceAsc", "PriceDesc" };
+            sortItems = new String[] { "Date \u2191", "Date \u2193", "Name \u2191", "Name \u2193","Price \u2191", "Price \u2193" };
         }else if(sortSettings.get(2).equals(String.valueOf(1))) {
             sortingCol = "_id";
             sortingOrder = "Desc";
-            sortItems = new String[] { "DateDesc", "DateAsc", "NameAsc", "NameDesc","PriceAsc", "PriceDesc" };
+            sortItems = new String[] { "Date \u2193", "Date \u2191", "Name \u2191", "Name \u2193","Price \u2191", "Price \u2193" };
         }else if(sortSettings.get(3).equals(String.valueOf(1))) {
             sortingCol = "symbol";
             sortingOrder = "Asc";
-            sortItems = new String[] { "NameAsc", "NameDesc", "DateAsc", "DateDesc", "PriceAsc", "PriceDesc" };
+            sortItems = new String[] { "Name \u2191", "Name \u2193", "Date \u2191", "Date \u2193", "Price \u2191", "Price \u2193" };
         }else if(sortSettings.get(4).equals(String.valueOf(1))) {
             sortingCol = "symbol";
             sortingOrder = "Desc";
-            sortItems = new String[] { "NameDesc", "NameAsc", "DateAsc", "DateDesc", "PriceAsc", "PriceDesc" };
+            sortItems = new String[] { "Name \u2193", "Name \u2191", "Date \u2191", "Date \u2193", "Price \u2191", "Price \u2193" };
         }else if(sortSettings.get(5).equals(String.valueOf(1))) {
             sortingCol = "currentPrice";
             sortingOrder = "Asc";
-            sortItems = new String[] {"PriceAsc", "PriceDesc", "DateAsc", "DateDesc", "NameAsc", "NameDesc" };
+            sortItems = new String[] {"Price \u2191", "Price \u2193", "Date \u2191", "Date \u2193", "Name \u2191", "Name \u2193" };
         }else if(sortSettings.get(6).equals(String.valueOf(1))) {
             sortingCol = "currentPrice";
             sortingOrder = "Desc";
-            sortItems = new String[] { "PriceDesc", "PriceAsc", "DateAsc", "DateDesc", "NameAsc", "NameDesc" };
+            sortItems = new String[] { "Price \u2193", "Price \u2191", "Date \u2191", "Date \u2193", "Name \u2191", "Name \u2193" };
         }
 
 
@@ -205,21 +205,21 @@ public class AlertsFragment extends Fragment {
     }
 
     void checkSelection() {
-        if(sortSpinner.getSelectedItem().toString().equals("DateAsc")) {
+        if(sortSpinner.getSelectedItem().toString().equals("Date \u2191")) {
             sortDB.updateSortSetting("1","0","0","0","0","0");
-        }else if(sortSpinner.getSelectedItem().toString().equals("DateDesc")) {
+        }else if(sortSpinner.getSelectedItem().toString().equals("Date \u2193")) {
             sortDB.updateSortSetting("0","1","0","0","0","0");
         }
-        else if(sortSpinner.getSelectedItem().toString().equals("NameAsc")) {
+        else if(sortSpinner.getSelectedItem().toString().equals("Name \u2191")) {
             sortDB.updateSortSetting("0","0","1","0","0","0");
         }
-        else if(sortSpinner.getSelectedItem().toString().equals("NameDesc")) {
+        else if(sortSpinner.getSelectedItem().toString().equals("Name \u2193")) {
             sortDB.updateSortSetting("0","0","0","1","0","0");
         }
-        else if(sortSpinner.getSelectedItem().toString().equals("PriceAsc")) {
+        else if(sortSpinner.getSelectedItem().toString().equals("Price \u2191")) {
             sortDB.updateSortSetting("0","0","0","0","1","0");
         }
-        else if(sortSpinner.getSelectedItem().toString().equals("PriceDesc")) {
+        else if(sortSpinner.getSelectedItem().toString().equals("Price \u2193")) {
             sortDB.updateSortSetting("0","0","0","0","0","1");
         }
         getFragmentManager().beginTransaction().replace(R.id.flContainer, new AlertsFragment()).commit();

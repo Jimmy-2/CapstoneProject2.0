@@ -11,11 +11,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.capstoneproject.AlertsAdapter;
 import com.example.capstoneproject.AlertsDatabaseHelper;
 import com.example.capstoneproject.R;
+import com.example.capstoneproject.SortDatabaseHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +43,12 @@ import okhttp3.Headers;
 public class AlertsFragment extends Fragment {
     public static final String TAG = "HomeAlerts"; // testing for logcat
 
+
     static String searchedStock = "";
+
+    SortDatabaseHelper sortDB;
+    ArrayList<String> sortSettings;
+
     AlertsDatabaseHelper alertDB;
     ArrayList<String> alert_id, symbol, name, currentPrice, alertPrice;
     AlertsAdapter alertsAdapter;
@@ -47,6 +57,13 @@ public class AlertsFragment extends Fragment {
     RecyclerView recyclerView;
     ImageButton btnSearchAlert;
     EditText etSearchAlert;
+
+    private Spinner sortSpinner;
+
+    private String sortingCol;
+    private String sortingOrder;
+
+
 
     //using hashset to get unique stock tickers
     //HashSet<String> tickerSet = new HashSet<String>();
@@ -110,39 +127,104 @@ public class AlertsFragment extends Fragment {
             }
         });
 
+        setSortSettings();
+
+        sortSettings = new ArrayList<>();
+        storeSortDataInArrays();
+
+        System.out.println(sortSettings+"HAHAHA");
+
+        sortSpinner = (Spinner) view.findViewById(R.id.sortSpinner);
+
+        String[] sortItems = new String[] {};
+        if(sortSettings.get(1).equals(String.valueOf(1))) {
+            sortingCol = "_id";
+            sortingOrder = "Asc";
+            sortItems = new String[] { "DateAsc", "DateDesc", "NameAsc", "NameDesc","PriceAsc", "PriceDesc" };
+        }else if(sortSettings.get(2).equals(String.valueOf(1))) {
+            sortingCol = "_id";
+            sortingOrder = "Desc";
+            sortItems = new String[] { "DateDesc", "DateAsc", "NameAsc", "NameDesc","PriceAsc", "PriceDesc" };
+        }else if(sortSettings.get(3).equals(String.valueOf(1))) {
+            sortingCol = "symbol";
+            sortingOrder = "Asc";
+            sortItems = new String[] { "NameAsc", "NameDesc", "DateAsc", "DateDesc", "PriceAsc", "PriceDesc" };
+        }else if(sortSettings.get(4).equals(String.valueOf(1))) {
+            sortingCol = "symbol";
+            sortingOrder = "Desc";
+            sortItems = new String[] { "NameDesc", "NameAsc", "DateAsc", "DateDesc", "PriceAsc", "PriceDesc" };
+        }else if(sortSettings.get(5).equals(String.valueOf(1))) {
+            sortingCol = "currentPrice";
+            sortingOrder = "Asc";
+            sortItems = new String[] {"PriceAsc", "PriceDesc", "DateAsc", "DateDesc", "NameAsc", "NameDesc" };
+        }else if(sortSettings.get(6).equals(String.valueOf(1))) {
+            sortingCol = "currentPrice";
+            sortingOrder = "Desc";
+            sortItems = new String[] { "PriceDesc", "PriceAsc", "DateAsc", "DateDesc", "NameAsc", "NameDesc" };
+        }
+
+
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, sortItems);
+        sortSpinner.setAdapter(adapter);
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        break;
+                    case 1:
+                        checkSelection();
+                        break;
+                    case 2:
+                        checkSelection();
+                        break;
+                    case 3:
+                        checkSelection();
+                        break;
+                    case 4:
+                        checkSelection();
+                        break;
+                    case 5:
+                        checkSelection();
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+
 
 
         return view;
 
     }
 
-    void goToAddFragment() {
-        searchedStock = etSearchAlert.getText().toString();
-        AlertsAddFragment newFragment = new AlertsAddFragment();
+    void checkSelection() {
+        if(sortSpinner.getSelectedItem().toString().equals("DateAsc")) {
+            sortDB.updateSortSetting("1","0","0","0","0","0");
+        }else if(sortSpinner.getSelectedItem().toString().equals("DateDesc")) {
+            sortDB.updateSortSetting("0","1","0","0","0","0");
+        }
+        else if(sortSpinner.getSelectedItem().toString().equals("NameAsc")) {
+            sortDB.updateSortSetting("0","0","1","0","0","0");
+        }
+        else if(sortSpinner.getSelectedItem().toString().equals("NameDesc")) {
+            sortDB.updateSortSetting("0","0","0","1","0","0");
+        }
+        else if(sortSpinner.getSelectedItem().toString().equals("PriceAsc")) {
+            sortDB.updateSortSetting("0","0","0","0","1","0");
+        }
+        else if(sortSpinner.getSelectedItem().toString().equals("PriceDesc")) {
+            sortDB.updateSortSetting("0","0","0","0","0","1");
+        }
+        getFragmentManager().beginTransaction().replace(R.id.flContainer, new AlertsFragment()).commit();
 
-        //using bundle to pass data to another fragment
-        Bundle args = new Bundle();
-        //key, value
-        args.putString("ticker", searchedStock );
-        newFragment.setArguments(args);
-        //add a stack so we can click back button to go back
-        getFragmentManager().beginTransaction().replace(R.id.flContainer, newFragment).addToBackStack(null).commit();
     }
-
-    void goToGraphFragment(String stockTicker) {
-        StockGraphFragment newFragment = new StockGraphFragment();
-
-        //using bundle to pass data to another fragment
-        Bundle args = new Bundle();
-        //key, value
-        args.putString("ticker", stockTicker);
-        newFragment.setArguments(args);
-        //add a stack so we can click back button to go back
-        getFragmentManager().beginTransaction().replace(R.id.flContainer, newFragment).addToBackStack(null).commit();
-    }
-
-
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -158,8 +240,8 @@ public class AlertsFragment extends Fragment {
         currentPrice = new ArrayList<>();
         alertPrice = new ArrayList<>();
 
-        //grab data from readAllData() and store it in array
-        storeDataInArrays();
+        //grab data from alerts database and store it in array
+        storeAlertsDataInArrays();
 
         alertsAdapter = new AlertsAdapter(getContext(), alert_id, symbol, name, currentPrice, alertPrice);
         recyclerView.setAdapter(alertsAdapter);
@@ -169,11 +251,38 @@ public class AlertsFragment extends Fragment {
         //getNewCurrentPrice();
     }
 
+    //check if app is opened for the first time and if it is, set the sorting setting
+    void setSortSettings() {
+        sortDB = new SortDatabaseHelper(getActivity());
+        if (sortDB.getSortCount() < 1) {
+            sortDB.addSort(1, 0, 0, 0, 0, 0);
+        }
+
+    }
+
+    void storeSortDataInArrays() {
+        Cursor cursor = sortDB.readSortSetting();
+        if(cursor.getCount() == 0) {
+            //Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+        }else {
+            while(cursor.moveToNext()) {
+                sortSettings.add(cursor.getString(0));
+                sortSettings.add(cursor.getString(1));
+                sortSettings.add(cursor.getString(2));
+                sortSettings.add(cursor.getString(3));
+                sortSettings.add(cursor.getString(4));
+                sortSettings.add(cursor.getString(5));
+                sortSettings.add(cursor.getString(6));
+
+            }
+        }
+    }
+
 
 
     //_id, symbol, name, currentPrice, alertPrice
-    void storeDataInArrays() {
-        Cursor cursor = alertDB.readAllDataSorted("alertPrice", "Asc");
+    void storeAlertsDataInArrays() {
+        Cursor cursor = alertDB.readAllDataSorted(sortingCol, sortingOrder);
         if(cursor.getCount() == 0) {
             //Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
         }else {
@@ -188,9 +297,21 @@ public class AlertsFragment extends Fragment {
         }
     }
 
-    public void getNewCurrentPrice() {
+    void goToAddFragment() {
+        searchedStock = etSearchAlert.getText().toString();
+        AlertsAddFragment newFragment = new AlertsAddFragment();
 
-        AlertsDatabaseHelper alertDB = new AlertsDatabaseHelper(getActivity());
+        //using bundle to pass data to another fragment
+        Bundle args = new Bundle();
+        //key, value
+        args.putString("ticker", searchedStock );
+        newFragment.setArguments(args);
+        //add a stack so we can click back button to go back
+        getFragmentManager().beginTransaction().replace(R.id.flContainer, newFragment).addToBackStack(null).commit();
+    }
+
+
+    public void getNewCurrentPrice() {
         for(int i = 0; i < alertDB.getAlertsCount(); i++) {
             alertHashTable.put(String.valueOf(symbol.get(i)), "0");
 

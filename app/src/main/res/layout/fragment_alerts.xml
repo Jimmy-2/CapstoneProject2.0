@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
+        android:layout_width="197dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etSearchAlert"
         android:layout_marginTop="0dp"
@@ -46,6 +46,16 @@
         android:gravity="center"
         android:text="Alerts"
         android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/sortSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etSearchAlert"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/textView4"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"

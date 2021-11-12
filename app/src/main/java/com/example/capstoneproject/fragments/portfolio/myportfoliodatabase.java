@@ -63,6 +63,7 @@ public class myportfoliodatabase extends SQLiteOpenHelper {
         cv.put(COLUMN_TITLE,Title);
         cv.put(COLUMN_AUTHOR,Price);
         cv.put(COLUMN_PAGES,Quantity);
+        cv.put(STOCK_CATEGORY,sector);
         long result = db.insert(TABLE_NAME, null, cv);
         if(result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();

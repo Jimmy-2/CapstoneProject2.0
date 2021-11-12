@@ -140,6 +140,7 @@ public class portfolio extends Fragment {
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                /*
                 mysecondDB.addentry("12133","10/23/2021");
                 mysecondDB.addentry("12133","10/24/2021");
                 mysecondDB.addentry("14213","10/25/2021");
@@ -150,6 +151,12 @@ public class portfolio extends Fragment {
                 mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("0","11/01/2021");
+                 */
+                /*
+                fixsector("AAPL");
+
+                 */
+                myDB.addstock("xd","69", 5,"bleh");
     }
         });
 
@@ -290,16 +297,23 @@ public class portfolio extends Fragment {
             @Override
             public void onClick(View view) {
                 AsyncHttpClient client = new AsyncHttpClient();
-                String testapi = "https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + popup_stockname.getText().toString().trim() +"&types=quote&range=1m&last=5&token=sk_312389e990ff49af9d13a20cc770ec95";
+
+                /*String testapi = "https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + popup_stockname.getText().toString().trim() +"&types=quote&range=1m&last=5&token=sk_312389e990ff49af9d13a20cc770ec95";
+                */
+                String testapi = "https://financialmodelingprep.com/api/v3/profile/" + popup_stockname.getText().toString().trim() + "?apikey=d610507a84e6b54992411a018867a0b7";
                 client.get(testapi, new JsonHttpResponseHandler() {
+
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
-                        JSONObject jsonObject = json.jsonObject;
+                        JSONArray jsonObject = json.jsonArray;
                         try {
-                            JSONObject results = jsonObject;
+                            JSONObject p = jsonObject.getJSONObject(0);
+                            /*
                             JSONObject p = results.getJSONObject(toUpperCase(popup_stockname.getText().toString().trim()));
+
                             p = p.getJSONObject("quote");
-                            myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("latestPrice"), Integer.parseInt(popup_stockamount.getText().toString()),"a");
+                            */
+                            myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("price"), Integer.parseInt(popup_stockamount.getText().toString()),p.getString("sector"));
                             tryredraw();
 
                         } catch (JSONException e) {
@@ -337,7 +351,9 @@ public class portfolio extends Fragment {
                 try {
                 JSONObject p = jsonObject.getJSONObject(0);
                 String pa = p.getString("sector");
-
+                System.out.println(pa);
+                pa = p.getString("price");
+                System.out.println(pa);
 
                 } catch (JSONException e) {
                     System.out.println("JSONEXCEPTION1");

@@ -6,7 +6,7 @@
  * Code taken from Taras Smakula: https://stackoverflow.com/questions/17423483/how-to-limit-edittext-length-to-7-integers-and-2-decimal-places/21802109
  *
  * */
-package com.example.capstoneproject;
+package com.example.capstoneproject.fragments.alerts;
 
 import android.text.InputFilter;
 import android.text.Spanned;

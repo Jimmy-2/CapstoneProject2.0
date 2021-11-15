@@ -2,7 +2,7 @@
  * Created by Jimmy.
  * */
 
-package com.example.capstoneproject.fragments;
+package com.example.capstoneproject.fragments.alerts;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,8 +25,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.example.capstoneproject.AlertsDatabaseHelper;
-import com.example.capstoneproject.DigitsInputFilter;
 import com.example.capstoneproject.R;
 
 import org.json.JSONException;
@@ -159,7 +157,8 @@ public class AlertsAddFragment extends Fragment {
             AlertsDatabaseHelper alertDB = new AlertsDatabaseHelper(getActivity());
             alertDB.addAlert(tvSymbol.getText().toString().trim(),
                     tvName.getText().toString().trim(),
-                    Double.valueOf(tvPrice.getText().toString().trim()),
+                    //Double.valueOf(tvPrice.getText().toString().trim()),
+                    Double.valueOf(123213),
                     Double.valueOf(etPriceMovement.getText().toString().trim()));
 
             //move back to AlertsFragment

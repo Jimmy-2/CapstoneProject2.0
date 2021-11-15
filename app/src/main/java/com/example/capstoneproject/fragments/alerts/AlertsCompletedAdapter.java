@@ -1,8 +1,4 @@
-/**
- * Created by Jimmy.
- * */
-
-package com.example.capstoneproject;
+package com.example.capstoneproject.fragments.alerts;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,19 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.example.capstoneproject.fragments.AlertsFragment;
-import com.example.capstoneproject.fragments.StockGraphFragment;
+import com.example.capstoneproject.R;
+import com.example.capstoneproject.fragments.chartsgraphs.StockGraphFragment;
 
 import java.util.ArrayList;
 
-public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.MyViewHolder> {
+public class AlertsCompletedAdapter extends RecyclerView.Adapter<AlertsCompletedAdapter.MyViewHolder> {
 
     Context context;
     ArrayList alert_id, symbol, name, currentPrice, alertPrice;
@@ -32,7 +26,7 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.MyViewHold
 
 
 
-    public AlertsAdapter(Context context, ArrayList alert_id, ArrayList symbol, ArrayList name, ArrayList currentPrice, ArrayList alertPrice) {
+    public AlertsCompletedAdapter(Context context, ArrayList alert_id, ArrayList symbol, ArrayList name, ArrayList currentPrice, ArrayList alertPrice) {
         this.context = context;
         this.alert_id = alert_id;
         this.symbol = symbol;
@@ -47,7 +41,7 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.alert_row, parent, false);
+        View view = inflater.inflate(R.layout.alert_completed_row, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -61,17 +55,9 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.MyViewHold
         holder.tvCurrentPriceRC.setText(String.valueOf(currentPrice.get(position)));
         holder.tvAlertPriceRC.setText(String.valueOf(alertPrice.get(position)));
 
-        holder.alertLayout.setOnClickListener(new View.OnClickListener() {
+        holder.alertCompletedLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(context, "Selected Row" + position, Toast.LENGTH_SHORT).show();
-
-
-                //code here:
-                //go to ariq's graph fragment for the selected row's stock
-
-                //or allow user to edit alert. However this will depend on how kevin's code for notifications work
-
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 StockGraphFragment fragment = new StockGraphFragment();
@@ -98,7 +84,7 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvSymbolRC, tvNameRC, tvCurrentPriceRC, tvAlertPriceRC;
-        LinearLayout alertLayout;
+        LinearLayout alertCompletedLayout;
 
         public ImageView ivDeleteAlert;
 
@@ -110,7 +96,7 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.MyViewHold
             tvCurrentPriceRC = itemView.findViewById(R.id.tvCurrentPriceRC);
             tvAlertPriceRC = itemView.findViewById(R.id.tvAlertPriceRC);
 
-            alertLayout = itemView.findViewById(R.id.alertLayout);
+            alertCompletedLayout = itemView.findViewById(R.id.alertCompletedLayout);
 
             ivDeleteAlert = itemView.findViewById(R.id.ivDeleteAlert);
 

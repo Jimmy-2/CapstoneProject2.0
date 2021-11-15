@@ -7,11 +7,9 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.capstoneproject.fragments.AlertsFragment;
+import com.example.capstoneproject.fragments.alerts.AlertsFragment;
 import com.example.capstoneproject.fragments.NewsFragment;
-import com.example.capstoneproject.fragments.PortfolioFragment;
 import com.example.capstoneproject.fragments.portfolio.portfolio;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

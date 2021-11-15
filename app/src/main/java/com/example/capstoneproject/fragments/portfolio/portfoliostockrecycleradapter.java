@@ -8,21 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstoneproject.AlertsAdapter;
 import com.example.capstoneproject.R;
-import com.example.capstoneproject.fragments.StockGraphFragment;
+import com.example.capstoneproject.fragments.chartsgraphs.StockGraphFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class portfoliostockrecycleradapter extends RecyclerView.Adapter<portfoliostockrecycleradapter.MyViewHolder>{
 

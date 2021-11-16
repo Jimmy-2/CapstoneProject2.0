@@ -5,7 +5,6 @@ import static android.icu.lang.UCharacter.toUpperCase;
 import android.app.AlertDialog;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,20 +24,18 @@ import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.example.capstoneproject.AlertsAdapter;
-import com.example.capstoneproject.AlertsDatabaseHelper;
 import com.example.capstoneproject.R;
-import com.github.mikephil.charting.charts.CandleStickChart;
+import com.example.capstoneproject.fragments.chartsgraphs.pieChartOnChartValueSelectedListener;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.CandleData;
-import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -46,12 +43,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
 
 import okhttp3.Headers;
@@ -145,7 +138,7 @@ public class portfolio extends Fragment {
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                /*
+
                 mysecondDB.addentry("12133","10/23/2021");
                 mysecondDB.addentry("12133","10/24/2021");
                 mysecondDB.addentry("14213","10/25/2021");
@@ -156,7 +149,7 @@ public class portfolio extends Fragment {
                 mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("0","11/01/2021");
-                 */
+
                 /*
                 fixsector("AAPL");
 
@@ -177,6 +170,8 @@ public class portfolio extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //line chart - start
 
         chartTitleTextView2 = view.findViewById(R.id.chartTitleTextView2);
         mChart = (LineChart)view.findViewById(R.id.lineChart);
@@ -211,7 +206,7 @@ public class portfolio extends Fragment {
         //chartTitleTextView2.setText();
         storeDataInArraysPortfolio(id, balance, date_entry);
 
-        System.out.print(date_entry+"HELLO");
+        //System.out.print(date_entry+"HELLO");
 
         x = new ArrayList<Entry>();
         y = new ArrayList<String>();
@@ -249,6 +244,41 @@ public class portfolio extends Fragment {
         portfolioChart.setData(data);
 
         */
+
+        // line chart - end
+
+
+        // piechart - start
+
+        PieChart pieChart = view.findViewById(R.id.balancePiechart);
+        ArrayList sectorPercent = new ArrayList();
+
+        sectorPercent.add(new Entry(50f, 0));
+        sectorPercent.add(new Entry(50f, 1));
+
+        PieDataSet dataSet = new PieDataSet(sectorPercent, "Your Sector Allocation");
+
+        dataSet.setValueTextSize(10f);
+
+        ArrayList sector = new ArrayList();
+
+        sector.add("Technology");
+        sector.add("Consumer Commerce");
+
+        PieData sectorData = new PieData(sector, dataSet);
+        pieChart.setData(sectorData);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChart.animateXY(100, 100);
+
+        pieChart.setRotationEnabled(true);
+        pieChart.setDragDecelerationFrictionCoef(0.9f);
+        pieChart.setTouchEnabled(true);
+        pieChart.setHighlightPerTapEnabled(true);
+
+        pieChart.setOnChartValueSelectedListener(new pieChartOnChartValueSelectedListener());
+
+
+        // pie chart - end
 
     }
 

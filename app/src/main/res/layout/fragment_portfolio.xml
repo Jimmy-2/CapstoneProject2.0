@@ -104,6 +104,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/balancePiechart"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@+id/refreshbutton" />
+
             <Button
                 android:id="@+id/teestbutton"
                 android:layout_width="wrap_content"

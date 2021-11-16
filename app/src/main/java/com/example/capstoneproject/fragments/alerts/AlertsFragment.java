@@ -1,4 +1,4 @@
-package com.example.capstoneproject.fragments;
+package com.example.capstoneproject.fragments.alerts;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -25,10 +24,7 @@ import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.example.capstoneproject.AlertsAdapter;
-import com.example.capstoneproject.AlertsDatabaseHelper;
 import com.example.capstoneproject.R;
-import com.example.capstoneproject.SortDatabaseHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,9 +48,11 @@ public class AlertsFragment extends Fragment {
     AlertsDatabaseHelper alertDB;
     ArrayList<String> alert_id, symbol, name, currentPrice, alertPrice;
     AlertsAdapter alertsAdapter;
+    AlertsCompletedAdapter alertsCompletedAdapter;
 
     SwipeRefreshLayout swipeContainer;
-    RecyclerView recyclerView;
+    RecyclerView alertRecyclerView;
+    RecyclerView alertCompletedRecyclerView;
     ImageButton btnSearchAlert;
     EditText etSearchAlert;
 
@@ -230,7 +228,8 @@ public class AlertsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.rvAlerts);
+        alertRecyclerView = view.findViewById(R.id.rvAlerts);
+        alertCompletedRecyclerView = view.findViewById(R.id.rvCompleted);
 
 
         alertDB = new AlertsDatabaseHelper(getActivity());
@@ -244,8 +243,12 @@ public class AlertsFragment extends Fragment {
         storeAlertsDataInArrays();
 
         alertsAdapter = new AlertsAdapter(getContext(), alert_id, symbol, name, currentPrice, alertPrice);
-        recyclerView.setAdapter(alertsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        alertRecyclerView.setAdapter(alertsAdapter);
+        alertRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        alertsCompletedAdapter = new AlertsCompletedAdapter(getContext(), alert_id, symbol, name, currentPrice, alertPrice);
+        alertCompletedRecyclerView.setAdapter(alertsCompletedAdapter);
+        alertCompletedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         //getNewCurrentPrice();

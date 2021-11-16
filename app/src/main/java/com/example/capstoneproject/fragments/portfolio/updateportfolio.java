@@ -2,7 +2,6 @@ package com.example.capstoneproject.fragments.portfolio;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,10 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.example.capstoneproject.fragments.AlertsFragment;
-import androidx.fragment.app.Fragment;
+
 import com.example.capstoneproject.R;
-import com.example.capstoneproject.fragments.AlertsFragment;
 
 public class updateportfolio extends AppCompatActivity {
     EditText title_input, pages_input;

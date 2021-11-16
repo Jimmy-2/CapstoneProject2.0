@@ -2,7 +2,7 @@
  * Created by Jimmy.
  * */
 
-package com.example.capstoneproject;
+package com.example.capstoneproject.fragments.alerts;
 
 import android.content.ContentValues;
 import android.content.Context;

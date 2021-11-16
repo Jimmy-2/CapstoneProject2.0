@@ -45,9 +45,12 @@ public class AlertsFragment extends Fragment {
     SortDatabaseHelper sortDB;
     ArrayList<String> sortSettings;
 
+    ArrayList<String> alert_id, symbol, name, currentPrice, alertPrice, alert_id_Completed, symbolCompleted, nameCompleted, timeCompleted, alertPriceCompleted;
+
     AlertsDatabaseHelper alertDB;
-    ArrayList<String> alert_id, symbol, name, currentPrice, alertPrice;
     AlertsAdapter alertsAdapter;
+
+    AlertsCompletedDatabaseHelper alertCompletedDB;
     AlertsCompletedAdapter alertsCompletedAdapter;
 
     SwipeRefreshLayout swipeContainer;
@@ -239,14 +242,23 @@ public class AlertsFragment extends Fragment {
         currentPrice = new ArrayList<>();
         alertPrice = new ArrayList<>();
 
+        alertCompletedDB = new AlertsCompletedDatabaseHelper(getActivity());
+        alert_id_Completed = new ArrayList<>();
+        symbolCompleted = new ArrayList<>();
+        nameCompleted = new ArrayList<>();
+        timeCompleted = new ArrayList<>();
+        alertPriceCompleted = new ArrayList<>();
+
         //grab data from alerts database and store it in array
         storeAlertsDataInArrays();
+        //grab data from alerts completed database and store it in array
+        storeAlertsCompletedDataInArrays();
 
         alertsAdapter = new AlertsAdapter(getContext(), alert_id, symbol, name, currentPrice, alertPrice);
         alertRecyclerView.setAdapter(alertsAdapter);
         alertRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        alertsCompletedAdapter = new AlertsCompletedAdapter(getContext(), alert_id, symbol, name, currentPrice, alertPrice);
+        alertsCompletedAdapter = new AlertsCompletedAdapter(getContext(), alert_id_Completed, symbolCompleted, nameCompleted, timeCompleted, alertPriceCompleted);
         alertCompletedRecyclerView.setAdapter(alertsCompletedAdapter);
         alertCompletedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -295,6 +307,22 @@ public class AlertsFragment extends Fragment {
                 name.add(cursor.getString(2));
                 currentPrice.add(cursor.getString(3));
                 alertPrice.add(cursor.getString(4));
+
+            }
+        }
+    }
+
+    void storeAlertsCompletedDataInArrays() {
+        Cursor cursor = alertCompletedDB.readAllDataSorted(sortingCol, sortingOrder);
+        if(cursor.getCount() == 0) {
+            //Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+        }else {
+            while(cursor.moveToNext()) {
+                alert_id_Completed.add(cursor.getString(0));
+                symbolCompleted.add(cursor.getString(1));
+                nameCompleted.add(cursor.getString(2));
+                timeCompleted.add(cursor.getString(3));
+                alertPriceCompleted.add(cursor.getString(4));
 
             }
         }

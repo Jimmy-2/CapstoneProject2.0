@@ -30,6 +30,8 @@ import com.example.capstoneproject.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 import okhttp3.Headers;
 
 
@@ -157,8 +159,16 @@ public class AlertsAddFragment extends Fragment {
             AlertsDatabaseHelper alertDB = new AlertsDatabaseHelper(getActivity());
             alertDB.addAlert(tvSymbol.getText().toString().trim(),
                     tvName.getText().toString().trim(),
-                    //Double.valueOf(tvPrice.getText().toString().trim()),
-                    Double.valueOf(123213),
+                    Double.valueOf(tvPrice.getText().toString().trim()),
+                    Double.valueOf(etPriceMovement.getText().toString().trim()));
+
+
+            //testing for completed alerts
+            String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+            AlertsCompletedDatabaseHelper alertCompletedDB = new AlertsCompletedDatabaseHelper(getActivity());
+            alertCompletedDB.addAlertCompleted(tvSymbol.getText().toString().trim(),
+                    tvName.getText().toString().trim(),
+                    currentDateTimeString ,
                     Double.valueOf(etPriceMovement.getText().toString().trim()));
 
             //move back to AlertsFragment

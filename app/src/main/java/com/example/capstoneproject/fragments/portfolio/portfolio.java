@@ -2,7 +2,11 @@ package com.example.capstoneproject.fragments.portfolio;
 
 import static android.icu.lang.UCharacter.toUpperCase;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -44,6 +48,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -76,12 +81,17 @@ public class portfolio extends Fragment {
     ArrayList<String> book_id, book_title, book_author, book_pages;
     FloatingActionButton gotofragment2; //possibly going to be useless
 
+    //for alarm
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
     Button testbutton;
     Button testbutton2;
     //for recyclerview
     private ArrayList<portfoliostock> stocksnames;
     portfoliostockrecycleradapter portfoliostockadapter;
     private RecyclerView recyclerview;
+
+
 
     public portfolio() {
         // Required empty public constructor
@@ -106,7 +116,11 @@ public class portfolio extends Fragment {
         balanceDB = new databaseforbalance(getActivity());
         valueDB = new databasefortotalvalue(getActivity());
 
-        //uncomment for actual release of the app ig
+        //initialize alarm stuff
+        alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE); //activity should be context
+        Intent intent = new Intent(getActivity(), portfolio.class); //activity should be context
+        alarmIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0); //activity should be context
+        // uncomment for actual release of the app ig
         //updatestock();
         mysecondDB = new databaseforsecondchartportfolio(getActivity());
         book_id = new ArrayList<>();
@@ -138,7 +152,7 @@ public class portfolio extends Fragment {
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+ /*5
                 mysecondDB.addentry("12133","10/23/2021");
                 mysecondDB.addentry("12133","10/24/2021");
                 mysecondDB.addentry("14213","10/25/2021");
@@ -149,6 +163,7 @@ public class portfolio extends Fragment {
                 mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("0","11/01/2021");
+*/
 
                 /*
                 fixsector("AAPL");
@@ -158,7 +173,7 @@ public class portfolio extends Fragment {
                 calcbal(testbalancesee);
 
                  */
-
+startsetbalnce();
     }
         });
 
@@ -312,7 +327,32 @@ public class portfolio extends Fragment {
 
 
 
+    public void startsetbalnce(){
+        dialogbuilder = new AlertDialog.Builder(getActivity()); //the video used this might be an issue
+        final View popupview = getLayoutInflater().inflate(R.layout.popupsetinitbalance, null);
+        popup_stockname = (EditText) popupview.findViewById(R.id.popupsetinitbalance_text);
+        popup_cancelbutton = (Button) popupview.findViewById(R.id.popupaddsetinitbalance_savebutton);
+        popup_savebutton = (Button) popupview.findViewById(R.id.popupsetinitbalance_cancelbutton);
+        dialogbuilder.setView(popupview);
+        dialog = dialogbuilder.create();
+        dialog.show();
 
+
+        popup_cancelbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        popup_savebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               dialog.dismiss();
+                }
+
+            
+        });
+    }
     //this is for the add stock popup
     public void createNewDialog() {
         dialogbuilder = new AlertDialog.Builder(getActivity()); //the video used this might be an issue
@@ -338,7 +378,7 @@ public class portfolio extends Fragment {
                 AsyncHttpClient client = new AsyncHttpClient();
 
                 /*String testapi = "https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + popup_stockname.getText().toString().trim() +"&types=quote&range=1m&last=5&token=sk_312389e990ff49af9d13a20cc770ec95";
-                */
+                 */
                 String testapi = "https://financialmodelingprep.com/api/v3/profile/" + popup_stockname.getText().toString().trim() + "?apikey=d610507a84e6b54992411a018867a0b7";
                 client.get(testapi, new JsonHttpResponseHandler() {
 
@@ -525,7 +565,7 @@ public class portfolio extends Fragment {
                     }
                     System.out.println(testvector.size());
                     myportfoliodatabase testdbthing = new myportfoliodatabase(getActivity());
-                    Cursor cursor3 = myDB.readAllData();
+                     Cursor cursor3 = myDB.readAllData();
                     int testnum = 0;
                     if (cursor3.getCount() == 0) {
                         Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
@@ -569,11 +609,23 @@ public class portfolio extends Fragment {
         a.setText(String.valueOf(balance));
         System.out.println(balance);
     }
+    void firsttimesetupever(){
+        valueDB.addinitial("0");
+        balanceDB.addinitial("0");
+    }
 
-}
-void firsttimesetupever(){
-    valueDB.addinitial("0");
-    balanceDB.addinitial("0");
+    void startalarmfirsttimever(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+
+// With setInexactRepeating(), you have to use one of the AlarmManager interval
+// constants--in this case, AlarmManager.INTERVAL_DAY.
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmIntent);
+
+    }
 }
 
 /*

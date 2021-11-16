@@ -74,12 +74,13 @@ public class portfolio extends Fragment {
     Button popup_savebutton, popup_cancelbutton;
     Vector<Integer> stockamounts = new Vector<Integer>();
     Vector<String> stocknames = new Vector<String>();
-
+    TextView testbalancesee;
     databaseforportfoliograph portfolioDB;
     myportfoliodatabase myDB;
     databaseforsecondchartportfolio mysecondDB;
+    databaseforbalance balanceDB;
+    databasefortotalvalue valueDB;
     ArrayList<String> book_id, book_title, book_author, book_pages;
-
     FloatingActionButton gotofragment2; //possibly going to be useless
 
     Button testbutton;
@@ -106,8 +107,12 @@ public class portfolio extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_portfolio, container, false);
         gotofragment2 = view.findViewById(R.id.addstockcryptobutton);
+        testbalancesee = view.findViewById(R.id.testbalanceview);
         myDB = new myportfoliodatabase(getActivity());
         portfolioDB = new databaseforportfoliograph(getActivity());
+        balanceDB = new databaseforbalance(getActivity());
+        valueDB = new databasefortotalvalue(getActivity());
+
         //uncomment for actual release of the app ig
         //updatestock();
         mysecondDB = new databaseforsecondchartportfolio(getActivity());
@@ -156,7 +161,11 @@ public class portfolio extends Fragment {
                 fixsector("AAPL");
 
                  */
-                myDB.addstock("xd","69", 5,"bleh");
+                /*
+                calcbal(testbalancesee);
+
+                 */
+
     }
         });
 
@@ -516,10 +525,26 @@ public class portfolio extends Fragment {
 
 
     }
+    void calcbal(TextView a){
+        Cursor cursor = myDB.readAllData();
+        Double balance = Double.parseDouble("0");
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
+                balance = balance + Double.parseDouble(cursor.getString(2)) * Double.parseDouble(cursor.getString(3));
+            }
 
+        }
+        a.setText(String.valueOf(balance));
+        System.out.println(balance);
+    }
 
 }
-
+void firsttimesetupever(){
+    valueDB.addinitial("0");
+    balanceDB.addinitial("0");
+}
 
 /*
 Handler handler = new Handler();

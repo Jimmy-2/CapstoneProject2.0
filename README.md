@@ -8,7 +8,7 @@ Group members:
 
 [Ariq Zaman](https://github.com/ariqzaman) - Graphs
 
-[Brian Nan](https://github.com/DogEnjoyer) - Portfolio
+[Brian Nan](https://github.com/DogEnjoyer) - Papertrading
 
 [Isaac Anzures](https://github.com/ianzures) - News 
 

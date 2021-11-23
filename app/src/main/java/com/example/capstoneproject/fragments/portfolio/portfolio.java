@@ -2,6 +2,7 @@ package com.example.capstoneproject.fragments.portfolio;
 
 import static android.icu.lang.UCharacter.toUpperCase;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -80,7 +81,8 @@ public class portfolio extends Fragment {
     databasefortotalvalue valueDB;
     ArrayList<String> book_id, book_title, book_author, book_pages;
     FloatingActionButton gotofragment2; //possibly going to be useless
-
+    databaseforachievements myAchievementDB;
+    private Activity activity;
     //for alarm
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
@@ -115,7 +117,7 @@ public class portfolio extends Fragment {
         portfolioDB = new databaseforportfoliograph(getActivity());
         balanceDB = new databaseforbalance(getActivity());
         valueDB = new databasefortotalvalue(getActivity());
-
+        myAchievementDB = new databaseforachievements(getActivity());
         //initialize alarm stuff
         alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE); //activity should be context
         Intent intent = new Intent(getActivity(), portfolio.class); //activity should be context
@@ -134,7 +136,7 @@ public class portfolio extends Fragment {
         portfoliostockadapter = new portfoliostockrecycleradapter(getActivity(),getActivity(), book_id, book_title, book_author, book_pages);
         recyclerview.setAdapter(portfoliostockadapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+activity = getActivity();
         gotofragment2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,7 +175,12 @@ public class portfolio extends Fragment {
                 calcbal(testbalancesee);
 
                  */
-startsetbalnce();
+//startsetbalnce();
+
+                Intent intent = new Intent(getActivity(), achievementactivity.class);
+                activity.startActivityForResult(intent, 1);
+
+
     }
         });
 
@@ -331,8 +338,8 @@ startsetbalnce();
         dialogbuilder = new AlertDialog.Builder(getActivity()); //the video used this might be an issue
         final View popupview = getLayoutInflater().inflate(R.layout.popupsetinitbalance, null);
         popup_stockname = (EditText) popupview.findViewById(R.id.popupsetinitbalance_text);
-        popup_cancelbutton = (Button) popupview.findViewById(R.id.popupaddsetinitbalance_savebutton);
-        popup_savebutton = (Button) popupview.findViewById(R.id.popupsetinitbalance_cancelbutton);
+        popup_savebutton = (Button) popupview.findViewById(R.id.popupaddsetinitbalance_savebutton);
+        popup_cancelbutton = (Button) popupview.findViewById(R.id.popupsetinitbalance_cancelbutton);
         dialogbuilder.setView(popupview);
         dialog = dialogbuilder.create();
         dialog.show();
@@ -347,10 +354,18 @@ startsetbalnce();
         popup_savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               dialog.dismiss();
+                balanceDB.deleteallbalance();
+                myAchievementDB.deleteallachievements();
+                //Integer.parseInt(popup_stockamount.getText().toString())
+                balanceDB.addinitial(String.valueOf(popup_stockname.getText()));
+                balanceDB.addinitial(String.valueOf(popup_stockname.getText()));
+                myAchievementDB.addachievement("set a balance","0", "true");
+                myAchievementDB.addachievement("make double your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*2), "false");
+                myAchievementDB.addachievement("make triple your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*3), "false");
+                dialog.dismiss();
                 }
 
-            
+
         });
     }
     //this is for the add stock popup
@@ -612,6 +627,7 @@ startsetbalnce();
     void firsttimesetupever(){
         valueDB.addinitial("0");
         balanceDB.addinitial("0");
+
     }
 
     void startalarmfirsttimever(){

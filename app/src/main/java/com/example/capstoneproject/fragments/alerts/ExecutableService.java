@@ -13,12 +13,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.capstoneproject.MainActivity;
 import com.example.capstoneproject.R;
 
 import org.json.JSONException;
@@ -160,10 +163,7 @@ public class ExecutableService extends BroadcastReceiver {
                         JSONObject results = jsonObject.getJSONObject(objectList.get(i));
                         String stockPrice = results.getString("price");
                         System.out.println(objectList.get(i)+stockPrice);
-
-
                     }
-
                     */
 
 

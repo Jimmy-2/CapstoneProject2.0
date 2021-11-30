@@ -160,6 +160,7 @@ public class AlertsAddFragment extends Fragment {
             alertDB.addAlert(tvSymbol.getText().toString().trim(),
                     tvName.getText().toString().trim(),
                     Double.valueOf(tvPrice.getText().toString().trim()),
+                    //100,
                     Double.valueOf(etPriceMovement.getText().toString().trim()));
 
 

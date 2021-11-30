@@ -1,3 +1,7 @@
+/**
+ * Created by Jimmy.
+ * */
+
 package com.example.capstoneproject.fragments.alerts;
 
 import android.content.Context;

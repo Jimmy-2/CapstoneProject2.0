@@ -12,6 +12,5 @@ Group members:
 
 [Isaac Anzures](https://github.com/ianzures) - News 
 
-[Jimmy Wu](https://github.com/Jimmy-2) - Alerts
+[Jimmy Wu](https://github.com/Jimmy-2) - Alerts/Notifications
 
-[Kevin Vo](https://github.com/monogear) - Notifications

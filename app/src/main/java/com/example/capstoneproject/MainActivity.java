@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.capstoneproject.fragments.alerts.AlarmHandler;
 import com.example.capstoneproject.fragments.alerts.AlertsFragment;
 import com.example.capstoneproject.fragments.NewsFragment;
 import com.example.capstoneproject.fragments.portfolio.portfolio;
@@ -24,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AlarmHandler alarmHandler = new AlarmHandler(this);
+        //cancel any existing alarm managers if there are any
+        alarmHandler.cancelAlarmManager();
+        //create and set new alarm managers for notifications
+        alarmHandler.setAlarmManager();
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

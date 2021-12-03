@@ -243,18 +243,78 @@ public class portfolio extends Fragment {
 
         PieChart pieChart = view.findViewById(R.id.balancePiechart);
         ArrayList sectorPercent = new ArrayList();
+        ArrayList fullPrice = new ArrayList();
+        ArrayList sector = new ArrayList();
+        ArrayList<String> stockId, name, price, quantity,  sectorName;
+        stockId = new ArrayList<>();
+        name = new ArrayList<>();
+        price = new ArrayList<>();
+        quantity = new ArrayList<>();
+        sectorName = new ArrayList<>();
 
-        sectorPercent.add(new Entry(50f, 0));
-        sectorPercent.add(new Entry(50f, 1));
+
+        storeSectorsDataInArrays(stockId, name, price, quantity, sectorName);
+
+        float allStockValue = 0.0F;
+        for (int i = 0; i < quantity.size(); i++) {
+            allStockValue += Double.parseDouble(price.get(i))*Double.parseDouble(quantity.get(i));
+            fullPrice.add(Double.parseDouble(price.get(i))*Double.parseDouble(quantity.get(i)));
+
+        }
+
+        ArrayList percentageTotal = new ArrayList();
+        ArrayList<String> sectorTotal = new ArrayList<>();
+
+        for (int i = 0; i < fullPrice.size(); i++) {
+            Double dFull = (Double) fullPrice.get(i);
+            float full = dFull.floatValue();
+
+
+            if(sectorTotal.contains(sectorName.get(i))) {
+                System.out.println("HELLO00"+sectorName.get(i));
+                for(int j = 0; j < sectorTotal.size(); j++) {
+                    if(sectorTotal.get(j).equals(sectorName.get(i)) ) {
+                        float full2 = full*1/allStockValue*100;
+                        float full3 = (float) percentageTotal.get(j);
+                        System.out.println("HELLO00"+full3 +full2);
+                        percentageTotal.set(j, full3 +full2);
+                    }
+                }
+            }else {
+                percentageTotal.add(full*1/allStockValue*100);
+                sectorTotal.add(sectorName.get(i));
+            }
+
+
+
+
+        }
+        for (int i = 0; i < sectorTotal.size(); i++) {
+            float full = (float) percentageTotal.get(i);
+            sectorPercent.add(new Entry( full*1, i));
+            sector.add(sectorTotal.get(i));
+
+
+        }
+
+        //sectorPercent.add(new Entry(full*1/allStockValue*100 , i));
+        // sector.add(sectorTotal);
+
+
+
+        System.out.println("HELLO" + stockId+name+price+quantity+sectorName);
+
+        //sectorPercent.add(new Entry(.5f*10, 0));
+        //sectorPercent.add(new Entry(50f, 1));
 
         PieDataSet dataSet = new PieDataSet(sectorPercent, "Your Sector Allocation");
 
         dataSet.setValueTextSize(10f);
 
-        ArrayList sector = new ArrayList();
 
-        sector.add("Technology");
-        sector.add("Consumer Commerce");
+
+
+        //sector.add("Consumer Commerce");
 
         PieData sectorData = new PieData(sector, dataSet);
         pieChart.setData(sectorData);
@@ -271,6 +331,23 @@ public class portfolio extends Fragment {
 
         // pie chart - end
 
+    }
+    void storeSectorsDataInArrays( ArrayList<String> stockId, ArrayList<String> stockName ,ArrayList<String> price, ArrayList<String> quantity, ArrayList<String>  sector) {
+        Cursor cursor = myDB.readAllData();
+
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
+                stockId.add(cursor.getString(0));
+                stockName.add(cursor.getString(1));
+                price.add(cursor.getString(2));
+                quantity.add(cursor.getString(3));
+                sector.add(cursor.getString(4));
+
+            }
+
+        }
     }
 
     private ArrayList<Entry> dataValues1() {

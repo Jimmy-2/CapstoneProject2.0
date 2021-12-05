@@ -127,6 +127,8 @@ int position;
                     intent.putExtra("pages", String.valueOf(book_pages.get(position)));
 
                     activity.startActivityForResult(intent, 1);
+
+
                 }
             });
 

@@ -99,7 +99,13 @@ public class portfolio extends Fragment {
     public portfolio() {
         // Required empty public constructor
     }
+    @Override
+    public void onResume() {
 
+        super.onResume();
+        balanceee.setText(String.valueOf(returnbalance()));
+        tryredraw();
+    }
 
 
     @Override
@@ -722,7 +728,7 @@ public class portfolio extends Fragment {
             }
         }
         else{
-            Toast.makeText(getActivity(), "Entry for balance was already made today", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Entry for balance was already made today", Toast.LENGTH_SHORT).show();
         }
     }
     int returnbalance(){
@@ -751,6 +757,7 @@ public class portfolio extends Fragment {
         }
         return bal;
     }
+
 }
 
 /*
@@ -758,22 +765,9 @@ Handler handler = new Handler();
 Runnable runnable;
 int delay = 15*1000; //Delay for 15 seconds.  One second = 1000 milliseconds.
 
+*/
 
-@Override
-protected void onResume() {
-   //start handler as activity become visible
-
-    handler.postDelayed( runnable = new Runnable() {
-        public void run() {
-            //do something
-        setstockinfo();
-            handler.postDelayed(runnable, delay);
-        }
-    }, delay);
-
-    super.onResume();
-}
-
+/*
 // If onPause() is not included the threads will double up when you
 // reload the activity
 

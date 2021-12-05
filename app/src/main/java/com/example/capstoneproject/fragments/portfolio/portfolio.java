@@ -50,6 +50,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -73,7 +74,7 @@ public class portfolio extends Fragment {
     Button popup_savebutton, popup_cancelbutton;
     Vector<Integer> stockamounts = new Vector<Integer>();
     Vector<String> stocknames = new Vector<String>();
-    TextView testbalancesee;
+    TextView testbalancesee,balanceee;
     databaseforportfoliograph portfolioDB;
     myportfoliodatabase myDB;
     databaseforsecondchartportfolio mysecondDB;
@@ -118,13 +119,11 @@ public class portfolio extends Fragment {
         balanceDB = new databaseforbalance(getActivity());
         valueDB = new databasefortotalvalue(getActivity());
         myAchievementDB = new databaseforachievements(getActivity());
-        //initialize alarm stuff
-        alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE); //activity should be context
-        Intent intent = new Intent(getActivity(), portfolio.class); //activity should be context
-        alarmIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0); //activity should be context
-        // uncomment for actual release of the app ig
+
+       // uncomment for actual release of the app ig
         //updatestock();
         mysecondDB = new databaseforsecondchartportfolio(getActivity());
+        checkifaddtobalancedb();
         book_id = new ArrayList<>();
         book_author = new ArrayList<>();
         book_title = new ArrayList<>();
@@ -136,7 +135,10 @@ public class portfolio extends Fragment {
         portfoliostockadapter = new portfoliostockrecycleradapter(getActivity(),getActivity(), book_id, book_title, book_author, book_pages);
         recyclerview.setAdapter(portfoliostockadapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-activity = getActivity();
+        activity = getActivity();
+        balanceee = view.findViewById(R.id.balanceview); //for viewing balance
+        balanceee.setText(String.valueOf(returnbalance()));
+
         gotofragment2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,10 +177,19 @@ activity = getActivity();
                 calcbal(testbalancesee);
 
                  */
-//startsetbalnce();
 
+    startsetbalnce();
+
+
+
+/*
                 Intent intent = new Intent(getActivity(), achievementactivity.class);
                 activity.startActivityForResult(intent, 1);
+*/
+/*
+                checkifaddtobalancedb(); //check for add to database for the daily check
+
+ */
 
 
     }
@@ -354,15 +365,24 @@ activity = getActivity();
         popup_savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                balanceDB.deleteallbalance();
-                myAchievementDB.deleteallachievements();
-                //Integer.parseInt(popup_stockamount.getText().toString())
-                balanceDB.addinitial(String.valueOf(popup_stockname.getText()));
-                balanceDB.addinitial(String.valueOf(popup_stockname.getText()));
-                myAchievementDB.addachievement("set a balance","0", "true");
-                myAchievementDB.addachievement("make double your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*2), "false");
-                myAchievementDB.addachievement("make triple your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*3), "false");
-                dialog.dismiss();
+
+                try{
+                    int x = Integer.parseInt(String.valueOf(popup_stockname.getText()));
+                    balanceDB.deleteallbalance();
+                    myAchievementDB.deleteallachievements();
+                    //Integer.parseInt(popup_stockamount.getText().toString())
+                    balanceDB.addinitial(String.valueOf(popup_stockname.getText())); //actual balance for use on portfolio
+                    //balanceDB.addinitial(String.valueOf(popup_stockname.getText()));
+                    myAchievementDB.addachievement("set a balance","0", "true");
+                    myAchievementDB.addachievement("make double your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*2), "false");
+                    myAchievementDB.addachievement("make triple your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*3), "false");
+                    balanceee.setText(String.valueOf(returnbalance()));
+                    dialog.dismiss();
+                }
+                catch(NumberFormatException e){
+                    Toast.makeText(getActivity(), "Error, not an integer!", Toast.LENGTH_SHORT).show();
+                }
+
                 }
 
 
@@ -390,46 +410,84 @@ activity = getActivity();
         popup_savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AsyncHttpClient client = new AsyncHttpClient();
+                String checkifexists = popup_stockname.getText().toString().trim().toLowerCase();
+                Cursor cursor9 = myDB.readAllData();
+                int checkagain = 0;
+                if (cursor9.getCount() == 0) {
 
-                /*String testapi = "https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + popup_stockname.getText().toString().trim() +"&types=quote&range=1m&last=5&token=sk_312389e990ff49af9d13a20cc770ec95";
-                 */
-                String testapi = "https://financialmodelingprep.com/api/v3/profile/" + popup_stockname.getText().toString().trim() + "?apikey=d610507a84e6b54992411a018867a0b7";
-                client.get(testapi, new JsonHttpResponseHandler() {
+                } else {
+                    while (cursor9.moveToNext()) {
+                        if(checkifexists.equals(cursor9.getString(1).toLowerCase())){
+                            checkagain = 1;
+                            System.out.println("p");
+                        }
+                    }
+                }
+                if(checkagain == 1) {
+                    Toast.makeText(getActivity(), "Error!, Stock already exists", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onSuccess(int statusCode, Headers headers, JSON json) {
-                        JSONArray jsonObject = json.jsonArray;
-                        try {
-                            JSONObject p = jsonObject.getJSONObject(0);
+                } else {
+
+                    AsyncHttpClient client = new AsyncHttpClient();
+
+                    /*String testapi = "https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + popup_stockname.getText().toString().trim() +"&types=quote&range=1m&last=5&token=sk_312389e990ff49af9d13a20cc770ec95";
+                     */
+                    String testapi = "https://financialmodelingprep.com/api/v3/profile/" + popup_stockname.getText().toString().trim() + "?apikey=d610507a84e6b54992411a018867a0b7";
+                    client.get(testapi, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                            JSONArray jsonObject = json.jsonArray;
+                            try {
+                                JSONObject p = jsonObject.getJSONObject(0);
                             /*
                             JSONObject p = results.getJSONObject(toUpperCase(popup_stockname.getText().toString().trim()));
 
                             p = p.getJSONObject("quote");
                             */
-                            myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("price"), Integer.parseInt(popup_stockamount.getText().toString()),p.getString("sector"));
-                            tryredraw();
+                                try {
+                                    int x = Integer.parseInt(popup_stockamount.getText().toString());
+                                    System.out.println((int)Double.parseDouble(p.getString("price")));
+                                    x = x * (int)Double.parseDouble(p.getString("price"));
 
-                        } catch (JSONException e) {
+                                    x = returnbalance() - x;
+                                    if(x<0){
+                                        Toast.makeText(getActivity(), "Error!, not enough money", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("price"), Integer.parseInt(popup_stockamount.getText().toString()), p.getString("sector"));
+                                        balanceDB.updateData(String.valueOf(returnbalanceid()),String.valueOf(x));
+                                        tryredraw();
+                                        balanceee.setText(String.valueOf(returnbalance()));
+                                        dialog.dismiss();
+                                    }
 
-                            e.printStackTrace();
+                                } catch (NumberFormatException e) {
+                                    Toast.makeText(getActivity(), "Error!, not an integer on stock amount", Toast.LENGTH_SHORT).show();
 
+                                }
+
+
+                            } catch (JSONException e) {
+
+                                e.printStackTrace();
+                                Toast.makeText(getActivity(), "Error!, please check stock name", Toast.LENGTH_SHORT).show();
+
+                            }
 
                         }
 
-                    }
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                            System.out.println("Failed");
+                            Toast.makeText(getActivity(), "Error!, please check stock name", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                        System.out.println("Failed");
+                        }
+                    });
 
-                    }
-                });
+                }
+                }
 
-
-                dialog.dismiss();
-
-            }
         });
     }
 /*
@@ -630,17 +688,68 @@ activity = getActivity();
 
     }
 
-    void startalarmfirsttimever(){
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
+    void checkifaddtobalancedb(){
+        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+        currentDateTimeString = currentDateTimeString.substring(0,currentDateTimeString.length()-10);
 
-// With setInexactRepeating(), you have to use one of the AlarmManager interval
-// constants--in this case, AlarmManager.INTERVAL_DAY.
-        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
+        Cursor cursor = mysecondDB.readAllData();
+        int checkfordate = 0;
+        if (cursor.getCount() == 0) {
+            System.out.println("nothing in second database");
+        } else {
+            while (cursor.moveToNext()) {
+                if(currentDateTimeString.equals(cursor.getString(2))){
+                    checkfordate = 1;
+                };
 
+            }
+
+        }
+
+        if(checkfordate == 0){
+            Cursor cursor2 = balanceDB.readAllData();
+            if(cursor2.getCount()==0){
+                Toast.makeText(getActivity(), "No balance", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                while (cursor2.moveToNext()) {
+
+                    System.out.println(cursor2.getString(1));
+                    mysecondDB.addentry(cursor2.getString(1), currentDateTimeString);
+                    Toast.makeText(getActivity(), "New entry made in the daily graph", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        else{
+            Toast.makeText(getActivity(), "Entry for balance was already made today", Toast.LENGTH_SHORT).show();
+        }
+    }
+    int returnbalance(){
+        Cursor cursor2 = balanceDB.readAllData();
+        int bal = 0;
+        if(cursor2.getCount()==0){
+            return 0;
+        }
+        else {
+            while (cursor2.moveToNext()) {
+                bal = Integer.parseInt(cursor2.getString(1));
+            }
+        }
+        return bal;
+    }
+    int returnbalanceid(){
+        Cursor cursor2 = balanceDB.readAllData();
+        int bal = 0;
+        if(cursor2.getCount()==0){
+            return 0;
+        }
+        else {
+            while (cursor2.moveToNext()) {
+                bal = Integer.parseInt(cursor2.getString(0));
+            }
+        }
+        return bal;
     }
 }
 

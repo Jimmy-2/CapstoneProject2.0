@@ -2,6 +2,7 @@ package com.example.capstoneproject.fragments.portfolio;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -44,6 +45,8 @@ public class updateportfolio extends AppCompatActivity {
                 title = title_input.getText().toString().trim();
                 pages = pages_input.getText().toString().trim();
                 myDB.updateData(id, title, author, pages);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
                 finish();
 
 
@@ -77,7 +80,7 @@ public class updateportfolio extends AppCompatActivity {
             title_input.setText(title);
 
             pages_input.setText(pages);
-            Log.d("stev", title + " " + author + " " + pages);
+            //Log.d("stev", title + " " + author + " " + pages);
         } else {
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
         }

@@ -3,6 +3,7 @@
     package="com.example.capstoneproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CapstoneProject">
+        <activity
+            android:name=".fragments.portfolio.achievementactivity"
+            android:exported="true" />
         <activity
             android:name=".fragments.portfolio.updateportfolio"
             android:exported="true" />

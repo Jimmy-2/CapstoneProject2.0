@@ -159,11 +159,12 @@ public class AlertsAddFragment extends Fragment {
             AlertsDatabaseHelper alertDB = new AlertsDatabaseHelper(getActivity());
             alertDB.addAlert(tvSymbol.getText().toString().trim(),
                     tvName.getText().toString().trim(),
-                    Double.valueOf(tvPrice.getText().toString().trim()),
-                    //100,
+                    //Double.valueOf(tvPrice.getText().toString().trim()),
+                    200,
                     Double.valueOf(etPriceMovement.getText().toString().trim()));
 
 
+            /*
             //testing for completed alerts
             String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
             AlertsCompletedDatabaseHelper alertCompletedDB = new AlertsCompletedDatabaseHelper(getActivity());
@@ -171,6 +172,9 @@ public class AlertsAddFragment extends Fragment {
                     tvName.getText().toString().trim(),
                     currentDateTimeString ,
                     Double.valueOf(etPriceMovement.getText().toString().trim()));
+
+
+             */
 
             //move back to AlertsFragment
             moveToAlertsHome();

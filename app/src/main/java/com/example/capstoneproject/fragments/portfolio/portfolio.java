@@ -197,7 +197,6 @@ public class portfolio extends Fragment {
         //chartTitleTextView2.setText();
         storeDataInArraysPortfolio(id, balance, date_entry);
 
-        //System.out.print(date_entry+"HELLO");
 
         x = new ArrayList<Entry>();
         y = new ArrayList<String>();
@@ -211,7 +210,7 @@ public class portfolio extends Fragment {
 
 
 
-        LineDataSet balanceset = new LineDataSet(x, "hello");
+        LineDataSet balanceset = new LineDataSet(x, "Portfolio Balance Graph");
 
         balanceset.setLineWidth(1.5f);
         balanceset.setCircleRadius(4f);
@@ -271,12 +270,13 @@ public class portfolio extends Fragment {
 
 
             if(sectorTotal.contains(sectorName.get(i))) {
-                System.out.println("HELLO00"+sectorName.get(i));
+
                 for(int j = 0; j < sectorTotal.size(); j++) {
                     if(sectorTotal.get(j).equals(sectorName.get(i)) ) {
                         float full2 = full*1/allStockValue*100;
                         float full3 = (float) percentageTotal.get(j);
-                        System.out.println("HELLO00"+full3 +full2);
+
+
                         percentageTotal.set(j, full3 +full2);
                     }
                 }
@@ -302,7 +302,7 @@ public class portfolio extends Fragment {
 
 
 
-        System.out.println("HELLO" + stockId+name+price+quantity+sectorName);
+
 
         //sectorPercent.add(new Entry(.5f*10, 0));
         //sectorPercent.add(new Entry(50f, 1));

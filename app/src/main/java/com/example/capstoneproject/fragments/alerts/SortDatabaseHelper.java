@@ -26,8 +26,7 @@ public class SortDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DATE_DESC = "dateDesc";
     private static final String COLUMN_NAME_ASC = "nameAsc";
     private static final String COLUMN_NAME_DESC = "nameDesc";
-    private static final String COLUMN_PRICE_ASC = "priceAsc";
-    private static final String COLUMN_PRICE_DESC = "priceDesc";
+
 
     public SortDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,9 +40,7 @@ public class SortDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_DATE_ASC + " INTEGER, " +
                 COLUMN_DATE_DESC + " INTEGER, " +
                 COLUMN_NAME_ASC + " INTEGER, " +
-                COLUMN_NAME_DESC + " INTEGER, " +
-                COLUMN_PRICE_ASC + " INTEGER, " +
-                COLUMN_PRICE_DESC + " INTEGER);";
+                COLUMN_NAME_DESC + " INTEGER);";
         db.execSQL(query);
     }
 
@@ -53,7 +50,7 @@ public class SortDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addSort(int dateAsc, int dateDesc, int nameAsc, int nameDesc, int priceAsc, int priceDesc) {
+    public void addSort(int dateAsc, int dateDesc, int nameAsc, int nameDesc) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -61,8 +58,7 @@ public class SortDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DATE_DESC, dateDesc);
         cv.put(COLUMN_NAME_ASC, nameAsc);
         cv.put(COLUMN_NAME_DESC, nameDesc);
-        cv.put(COLUMN_PRICE_ASC, priceAsc);
-        cv.put(COLUMN_PRICE_DESC, priceDesc);
+
 
         long result = db.insert(TABLE_NAME, null, cv);
         //if fail to insert data
@@ -86,15 +82,13 @@ public class SortDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //updates current prices in database
-    public void updateSortSetting(String dateAsc, String dateDesc, String nameAsc, String nameDesc, String priceAsc, String priceDesc){
+    public void updateSortSetting(String dateAsc, String dateDesc, String nameAsc, String nameDesc){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_DATE_ASC, dateAsc);
         cv.put(COLUMN_DATE_DESC, dateDesc);
         cv.put(COLUMN_NAME_ASC, nameAsc);
         cv.put(COLUMN_NAME_DESC, nameDesc);
-        cv.put(COLUMN_PRICE_ASC, priceAsc);
-        cv.put(COLUMN_PRICE_DESC, priceDesc);
 
 
         long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{"1"});

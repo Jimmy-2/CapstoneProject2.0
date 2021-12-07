@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.Set;
@@ -138,6 +139,14 @@ public class ExecutableService extends BroadcastReceiver {
                                 Notification.Builder notification = new Notification.Builder
                                         (context, CHANNEL_ID).setContentTitle("PRICE ALERT").setContentText(symbol.get(i)+" has reached higher than your alert price of " + alertPrice.get(i)).setSmallIcon(R.drawable.ic_launcher_background).setAutoCancel(true);
                                 NotificationManagerCompat.from(context).notify(ran,notification.build());
+
+                                alertDB.deleteRow(String.valueOf(alert_id.get(i)));
+                                String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+                                AlertsCompletedDatabaseHelper alertCompletedDB = new AlertsCompletedDatabaseHelper(context);
+                                alertCompletedDB.addAlertCompleted(symbol.get(i),
+                                        name.get(i),
+                                        currentDateTimeString ,
+                                        Double.valueOf(alertPrice.get(i)));
                             }
                         }else if (alertHighOrLow == false) {
                             if (newVal < Double.parseDouble(alertPrice.get(i)) ) {
@@ -146,6 +155,13 @@ public class ExecutableService extends BroadcastReceiver {
                                 Notification.Builder notification = new Notification.Builder
                                         (context, CHANNEL_ID).setContentTitle("PRICE ALERT").setContentText(symbol.get(i)+" has reached lower than your alert price of " + alertPrice.get(i)).setSmallIcon(R.drawable.ic_launcher_background).setAutoCancel(true);
                                 NotificationManagerCompat.from(context).notify(ran,notification.build());
+                                alertDB.deleteRow(String.valueOf(alert_id.get(i)));
+                                String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+                                AlertsCompletedDatabaseHelper alertCompletedDB = new AlertsCompletedDatabaseHelper(context);
+                                alertCompletedDB.addAlertCompleted(symbol.get(i),
+                                        name.get(i),
+                                        currentDateTimeString ,
+                                        Double.valueOf(alertPrice.get(i)));
                             }
                         }
 

@@ -104,7 +104,8 @@ public class portfolio extends Fragment {
 
         super.onResume();
         balanceee.setText(String.valueOf(returnbalance()));
-        tryredraw();
+        //tryredraw();
+        updatestock();
     }
 
 

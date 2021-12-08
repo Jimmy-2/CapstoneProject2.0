@@ -1,4 +1,4 @@
-# StockAlertsApp 
+# HoodRobin - StockAlertsPaperTradingApp
 
 ## Table of Contents (to be added)
 1. [Overview](#Overview)

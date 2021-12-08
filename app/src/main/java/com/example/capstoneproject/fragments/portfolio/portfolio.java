@@ -453,21 +453,25 @@ public class portfolio extends Fragment {
                             */
                                 try {
                                     int x = Integer.parseInt(popup_stockamount.getText().toString());
-                                    System.out.println((int)Double.parseDouble(p.getString("price")));
-                                    x = x * (int)Double.parseDouble(p.getString("price"));
+                                    if (x < 0) {
+                                        Toast.makeText(getActivity(), "Error!, amount less than 0", Toast.LENGTH_SHORT).show();
+
+                                    } else {
+
+                                    System.out.println((int) Double.parseDouble(p.getString("price")));
+                                    x = x * (int) Double.parseDouble(p.getString("price"));
 
                                     x = returnbalance() - x;
-                                    if(x<0){
+                                    if (x < 0) {
                                         Toast.makeText(getActivity(), "Error!, not enough money", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
+                                    } else {
                                         myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("price"), Integer.parseInt(popup_stockamount.getText().toString()), p.getString("sector"));
-                                        balanceDB.updateData(String.valueOf(returnbalanceid()),String.valueOf(x));
+                                        balanceDB.updateData(String.valueOf(returnbalanceid()), String.valueOf(x));
                                         tryredraw();
                                         balanceee.setText(String.valueOf(returnbalance()));
                                         dialog.dismiss();
                                     }
-
+                                }
                                 } catch (NumberFormatException e) {
                                     Toast.makeText(getActivity(), "Error!, not an integer on stock amount", Toast.LENGTH_SHORT).show();
 

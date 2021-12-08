@@ -74,15 +74,19 @@ public class updateportfolio extends AppCompatActivity {
                             p = p.getJSONObject("quote");
                             */
                             try {
+                                if (Integer.parseInt(pages)<0) {
+                                    Toast.makeText(updateportfolio.this, "Error!, amount less than 0", Toast.LENGTH_SHORT).show();
+
+                                } else {
+
                                 int x = Integer.parseInt(pages);
-                                System.out.println((int)Double.parseDouble(p.getString("price")));
-                                x = x * (int)Double.parseDouble(p.getString("price"));
+                                System.out.println((int) Double.parseDouble(p.getString("price")));
+                                x = x * (int) Double.parseDouble(p.getString("price"));
                                 x = returnbalance() - x;
-                                if(x<0){
+                                if (x < 0) {
                                     Toast.makeText(updateportfolio.this, "Error!, not enough money", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    balanceDB.updateData(String.valueOf(returnbalanceid()),String.valueOf(x));
+                                } else {
+                                    balanceDB.updateData(String.valueOf(returnbalanceid()), String.valueOf(x));
                                     saveintialamount = Integer.parseInt(pages) + saveintialamount;
                                     pages = String.valueOf(saveintialamount);
                                     myDB.updateData(id, title, author, pages);
@@ -90,7 +94,7 @@ public class updateportfolio extends AppCompatActivity {
 
                                     finish();
                                 }
-
+                            }
                             } catch (NumberFormatException e) {
                                 Toast.makeText(updateportfolio.this, "Error!, not an integer on stock amount", Toast.LENGTH_SHORT).show();
 
@@ -127,10 +131,96 @@ public class updateportfolio extends AppCompatActivity {
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //And only then we call this
+                myportfoliodatabase myDB = new myportfoliodatabase(updateportfolio.this);
+
+                pages = pages_input.getText().toString().trim();
+                //saveintialamount = Integer.parseInt(pages) + saveintialamount;
+                //pages = String.valueOf(saveintialamount);
+                AsyncHttpClient client = new AsyncHttpClient();
+
+                /*String testapi = "https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + popup_stockname.getText().toString().trim() +"&types=quote&range=1m&last=5&token=sk_312389e990ff49af9d13a20cc770ec95";
+                 */
+                String testapi = "https://financialmodelingprep.com/api/v3/profile/" + title + "?apikey=d610507a84e6b54992411a018867a0b7";
+                client.get(testapi, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        JSONArray jsonObject = json.jsonArray;
+                        try {
+                            JSONObject p = jsonObject.getJSONObject(0);
+                            /*
+                            JSONObject p = results.getJSONObject(toUpperCase(popup_stockname.getText().toString().trim()));
+
+                            p = p.getJSONObject("quote");
+                            */
+                            try {
+                                int x = Integer.parseInt(pages);
+                                System.out.println((int) Double.parseDouble(p.getString("price")));
+                                x = x * (int) Double.parseDouble(p.getString("price"));
+                                x = returnbalance() + x;
+                                if (Integer.parseInt(pages) < 0)
+                                {
+                                    Toast.makeText(updateportfolio.this, "Error!, amount less than 0", Toast.LENGTH_SHORT).show();
+
+                                } else {
+
+                                if (Integer.parseInt(pages) > saveintialamount) {
+                                    Toast.makeText(updateportfolio.this, "Error!, not enough stocks", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    balanceDB.updateData(String.valueOf(returnbalanceid()), String.valueOf(x));
+                                    saveintialamount = saveintialamount - Integer.parseInt(pages);
+                                    pages = String.valueOf(saveintialamount);
+                                    if (saveintialamount == 0) {
+                                        myDB.deleteOneRow(id);
+                                        finish();
+                                    } else {
+                                        myDB.updateData(id, title, author, pages);
+                                        finish();
+                                    }
+
+                                }
+                            }
+                            } catch (NumberFormatException e) {
+                                Toast.makeText(updateportfolio.this, "Error!, not an integer on stock amount", Toast.LENGTH_SHORT).show();
+
+                            }
+
+
+                        } catch (JSONException e) {
+
+                            e.printStackTrace();
+                            Toast.makeText(updateportfolio.this, "Error!, please check stock name", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        System.out.println("Failed");
+                        Toast.makeText(updateportfolio.this, "Error!, please check stock name", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                /*
+                myDB.updateData(id, title, author, pages);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                finish();
+
+                 */
+
+
+            }
+            /*
+            public void onClick(View view) {
                 myportfoliodatabase myDB = new myportfoliodatabase(updateportfolio.this);
                 myDB.deleteOneRow(id);
                 finish();
             }
+
+             */
         });
 
     }

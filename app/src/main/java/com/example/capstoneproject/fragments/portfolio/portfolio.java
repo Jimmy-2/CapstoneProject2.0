@@ -155,7 +155,9 @@ public class portfolio extends Fragment {
         testbutton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                updatestock();
+                //updatestock();
+                Intent intent = new Intent(getActivity(), achievementactivity.class);
+                activity.startActivityForResult(intent, 1);
         }
         });
 
@@ -381,7 +383,34 @@ public class portfolio extends Fragment {
                     //balanceDB.addinitial(String.valueOf(popup_stockname.getText()));
                     myAchievementDB.addachievement("set a balance","0", "true");
                     myAchievementDB.addachievement("make double your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*2), "false");
-                    myAchievementDB.addachievement("make triple your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*3), "false");
+                    myAchievementDB.addachievement("make 5 times your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*5), "false");
+                    if(Integer.parseInt(popup_stockname.getText().toString()) > 1000000){
+                        myAchievementDB.addachievement("have a million dollars in balance","1000000", "true");
+                    }
+                    else{
+                        myAchievementDB.addachievement("have a million dollars in balance","1000000", "false");
+                    }
+                    if(Integer.parseInt(popup_stockname.getText().toString()) > 2000000){
+                        myAchievementDB.addachievement("have 2 million dollars in balance","2000000", "true");
+                    }
+                    else{
+                        myAchievementDB.addachievement("have 2 million dollars in balance","2000000", "false");
+                    }
+                    if(Integer.parseInt(popup_stockname.getText().toString()) > 10000000){
+                        myAchievementDB.addachievement("have 10 million dollars in balance","10000000", "true");
+                    }
+                    else{
+                        myAchievementDB.addachievement("have 10 million dollars in balance","10000000", "false");
+                    }
+                    double test = Integer.parseInt(popup_stockname.getText().toString())*.75;
+
+                    myAchievementDB.addachievement("have 75% of your original balance",String.valueOf((int)(test)), "false");
+                    test = Integer.parseInt(popup_stockname.getText().toString())*.5;
+                    myAchievementDB.addachievement("have half of your original balance",String.valueOf((int)(test)), "false");
+                    test = Integer.parseInt(popup_stockname.getText().toString())*.01;
+                    myAchievementDB.addachievement("have 1% of your original balance",String.valueOf((int)(test)), "false");
+
+
                     balanceee.setText(String.valueOf(returnbalance()));
                     dialog.dismiss();
                 }

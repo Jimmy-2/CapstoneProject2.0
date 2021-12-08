@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/recycleviewstocks"
                 android:layout_marginTop="100dp"
-                android:text="Refresh stock prices"
+                android:text="Achievements"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

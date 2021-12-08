@@ -29,6 +29,7 @@ public class updateportfolio extends AppCompatActivity {
     Button update_button, delete_button;
     String id, title, author, pages;
     int saveintialamount;
+    databaseforachievements achievementDB;
     databaseforbalance balanceDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class updateportfolio extends AppCompatActivity {
         update_button = findViewById(R.id.popupaddstockcrypto_savebutton2);
         delete_button = findViewById(R.id.popupaddstockcrypto_deletebutton);
         balanceDB = new databaseforbalance(updateportfolio.this);
+        achievementDB = new databaseforachievements(updateportfolio.this);
         getAndSetIntentData();
 
         //Set actionbar title after getAndSetIntentData method
@@ -171,6 +173,7 @@ public class updateportfolio extends AppCompatActivity {
                                     balanceDB.updateData(String.valueOf(returnbalanceid()), String.valueOf(x));
                                     saveintialamount = saveintialamount - Integer.parseInt(pages);
                                     pages = String.valueOf(saveintialamount);
+                                    checkachievements(x);
                                     if (saveintialamount == 0) {
                                         myDB.deleteOneRow(id);
                                         finish();
@@ -225,7 +228,28 @@ public class updateportfolio extends AppCompatActivity {
 
     }
 
+    void checkachievements(int value){
+        Cursor cursor = achievementDB.readAllData();
+        if (cursor.getCount() == 0) {
+            Toast.makeText(updateportfolio.this, "No achievements, please set balance", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
+                System.out.println(Integer.valueOf(cursor.getString(2)));
+                if(value >= Integer.valueOf(cursor.getString(2))){
+                    if(Integer.valueOf(cursor.getString(0))>5){
+                        if(value <= Integer.valueOf(cursor.getString(2))){
+                            achievementDB.updateData2(cursor.getString(0),cursor.getString(1),cursor.getString(2),"true");
 
+                        }
+                    }
+                    else{
+                        achievementDB.updateData2(cursor.getString(0),cursor.getString(1),cursor.getString(2),"true");
+                    }
+
+                }
+            }
+            }
+    }
 
     int returnbalance(){
         Cursor cursor2 = balanceDB.readAllData();

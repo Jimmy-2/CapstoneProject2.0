@@ -25,6 +25,9 @@ Group members:
 ### Description
 Stock alerts and papertrading app for Hunter College CSCI Capstone course. Features news and graphs for stocks.
 
+
+## Product Spec
+
 ### 1. Screen Archetypes
 
 * Home/1st tab: Random Recipe 

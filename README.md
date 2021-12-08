@@ -1,6 +1,7 @@
 # StockAlertsApp 
-Stock and Crypto Alerts App for Hunter College CSCI Capstone course.
-(Name is temporary for now)
+Stock alerts and papertrading app for Hunter College CSCI Capstone course.
+
+
 
 
 Group members:

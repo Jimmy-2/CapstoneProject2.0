@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AdvancedOptionsFragment">
+
+    <AutoCompleteTextView
+        android:id="@+id/tvExclude"
+        android:layout_width="211dp"
+        android:layout_height="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:hint="Exclude Source(s)"
+        tools:text="Exclude ticker(s)" />
+
+    <EditText
+        android:id="@+id/tvItemCount"
+        android:layout_width="226dp"
+        android:layout_height="68dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:ems="10"
+        android:hint="Item Count"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/tvOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="191dp"
+        android:layout_marginEnd="180dp"
+        android:text="TextView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/mnSort"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="245dp"
+        android:layout_marginEnd="50dp"
+        android:hint="Sort by">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="109dp"
+        android:layout_marginBottom="311dp"
+        android:text="Reset" />
+
+    <Button
+        android:id="@+id/btnSearchAdv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="310dp"
+        android:text="Search" />
+
+</RelativeLayout>

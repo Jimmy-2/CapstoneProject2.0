@@ -104,7 +104,8 @@ public class portfolio extends Fragment {
 
         super.onResume();
         balanceee.setText(String.valueOf(returnbalance()));
-        tryredraw();
+        //tryredraw();
+        updatestock();
     }
 
 
@@ -155,7 +156,9 @@ public class portfolio extends Fragment {
         testbutton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                updatestock();
+                //updatestock();
+                Intent intent = new Intent(getActivity(), achievementactivity.class);
+                activity.startActivityForResult(intent, 1);
         }
         });
 
@@ -458,7 +461,34 @@ public class portfolio extends Fragment {
                     //balanceDB.addinitial(String.valueOf(popup_stockname.getText()));
                     myAchievementDB.addachievement("set a balance","0", "true");
                     myAchievementDB.addachievement("make double your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*2), "false");
-                    myAchievementDB.addachievement("make triple your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*3), "false");
+                    myAchievementDB.addachievement("make 5 times your money",String.valueOf(Integer.parseInt(popup_stockname.getText().toString())*5), "false");
+                    if(Integer.parseInt(popup_stockname.getText().toString()) > 1000000){
+                        myAchievementDB.addachievement("have a million dollars in balance","1000000", "true");
+                    }
+                    else{
+                        myAchievementDB.addachievement("have a million dollars in balance","1000000", "false");
+                    }
+                    if(Integer.parseInt(popup_stockname.getText().toString()) > 2000000){
+                        myAchievementDB.addachievement("have 2 million dollars in balance","2000000", "true");
+                    }
+                    else{
+                        myAchievementDB.addachievement("have 2 million dollars in balance","2000000", "false");
+                    }
+                    if(Integer.parseInt(popup_stockname.getText().toString()) > 10000000){
+                        myAchievementDB.addachievement("have 10 million dollars in balance","10000000", "true");
+                    }
+                    else{
+                        myAchievementDB.addachievement("have 10 million dollars in balance","10000000", "false");
+                    }
+                    double test = Integer.parseInt(popup_stockname.getText().toString())*.75;
+
+                    myAchievementDB.addachievement("have 75% of your original balance",String.valueOf((int)(test)), "false");
+                    test = Integer.parseInt(popup_stockname.getText().toString())*.5;
+                    myAchievementDB.addachievement("have half of your original balance",String.valueOf((int)(test)), "false");
+                    test = Integer.parseInt(popup_stockname.getText().toString())*.01;
+                    myAchievementDB.addachievement("have 1% of your original balance",String.valueOf((int)(test)), "false");
+
+
                     balanceee.setText(String.valueOf(returnbalance()));
                     dialog.dismiss();
                 }
@@ -530,21 +560,25 @@ public class portfolio extends Fragment {
                             */
                                 try {
                                     int x = Integer.parseInt(popup_stockamount.getText().toString());
-                                    System.out.println((int)Double.parseDouble(p.getString("price")));
-                                    x = x * (int)Double.parseDouble(p.getString("price"));
+                                    if (x < 0) {
+                                        Toast.makeText(getActivity(), "Error!, amount less than 0", Toast.LENGTH_SHORT).show();
+
+                                    } else {
+
+                                    System.out.println((int) Double.parseDouble(p.getString("price")));
+                                    x = x * (int) Double.parseDouble(p.getString("price"));
 
                                     x = returnbalance() - x;
-                                    if(x<0){
+                                    if (x < 0) {
                                         Toast.makeText(getActivity(), "Error!, not enough money", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
+                                    } else {
                                         myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("price"), Integer.parseInt(popup_stockamount.getText().toString()), p.getString("sector"));
-                                        balanceDB.updateData(String.valueOf(returnbalanceid()),String.valueOf(x));
+                                        balanceDB.updateData(String.valueOf(returnbalanceid()), String.valueOf(x));
                                         tryredraw();
                                         balanceee.setText(String.valueOf(returnbalance()));
                                         dialog.dismiss();
                                     }
-
+                                }
                                 } catch (NumberFormatException e) {
                                     Toast.makeText(getActivity(), "Error!, not an integer on stock amount", Toast.LENGTH_SHORT).show();
 

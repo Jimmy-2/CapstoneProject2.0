@@ -46,12 +46,18 @@ public class databaseforachievements extends SQLiteOpenHelper {
         return cursor;
     }
     void updateData(String row_id, String newbalance, String complete){
-
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(ACHIEVEMENT, newbalance);
         cv.put(COMPLETED, complete);
-
+        long result = db.update(TABLE_NAME, cv, "id=?", new String[]{row_id});
+    }
+    void updateData2(String row_id,String achievement,String amount, String complete){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(ACHIEVEMENT, achievement);
+        cv.put(AMOUNT,amount);
+        cv.put(COMPLETED,complete);
         long result = db.update(TABLE_NAME, cv, "id=?", new String[]{row_id});
     }
     void addachievement( String achievement,String amount, String completed){

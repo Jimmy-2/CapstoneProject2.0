@@ -15,3 +15,8 @@ Group members:
 
 [Jimmy Wu](https://github.com/Jimmy-2) - Alerts/Notifications
 
+
+## Table of Contents
+1. [Overview](#Overview)
+2. [Gifs](#Gifs)
+

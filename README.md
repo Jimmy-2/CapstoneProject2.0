@@ -1,8 +1,11 @@
 # StockAlertsApp 
-Stock alerts and papertrading app for Hunter College CSCI Capstone course.
 
+## Table of Contents (to be added)
+1. [Overview](#Overview)
+2. [Product Spec](#Product-Spec)
+3. [Gifs](#Gifs)
 
-
+## Overview
 
 Group members:
 
@@ -14,16 +17,9 @@ Group members:
 [Isaac Anzures](https://github.com/ianzures) - News 
 
 [Jimmy Wu](https://github.com/Jimmy-2) - Alerts/Notifications
-
-
-## Table of Contents (to be added)
-1. [Overview](#Overview)
-2. [Product Spec](#Product-Spec)
-3. [Gifs](#Gifs)
-
-## Overview
 ### Description
 Stock alerts and papertrading app for Hunter College CSCI Capstone course. Features news and graphs for stocks.
+
 
 
 ## Product Spec

@@ -58,8 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="109dp"
-        android:layout_marginBottom="311dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginBottom="239dp"
         android:text="Reset" />
 
     <Button
@@ -68,8 +68,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="97dp"
-        android:layout_marginBottom="310dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="231dp"
         android:text="Search" />
+
+    <SeekBar
+        android:id="@+id/sbSentiment"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="167dp"
+        android:layout_height="84dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="117dp"
+        android:layout_marginBottom="326dp"
+        android:max="2"
+        android:progress="1" />
 
 </RelativeLayout>

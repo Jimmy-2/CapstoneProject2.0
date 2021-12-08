@@ -59,7 +59,7 @@ public class NewsFragment extends Fragment {
     //String numItems;
     String tickers;
     String url ;
-
+    String sentiment;
 
     public NewsFragment() {}
 
@@ -203,9 +203,20 @@ public class NewsFragment extends Fragment {
         //}
 
         // create url for get request.
-        Toast.makeText(getActivity(),sharedPreferences.getString("excludeSource", ""),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),sharedPreferences.getString("sentimentFilter", ""),Toast.LENGTH_SHORT).show();
 
-        url = String.format("https://stocknewsapi.com/api/v1?tickers=%s&items=%s&sourceexclude=%s&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA",tickers,sharedPreferences.getString("itemCount", ""),sharedPreferences.getString("excludeSource", ""));
+       switch(sharedPreferences.getString("sentimentFilter", "")){
+           case "0":
+               sentiment = "negative";
+               break;
+           case "2":
+               sentiment = "positive";
+               break;
+           default:
+               sentiment = "";
+       }
+
+        url = String.format("https://stocknewsapi.com/api/v1?tickers=%s&items=%s&sourceexclude=%s&sentiment=%s&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA",tickers,sharedPreferences.getString("itemCount", ""),sharedPreferences.getString("excludeSource", ""), sentiment);
 
         // save url in shared preferences.
         SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -11,38 +11,57 @@
         android:id="@+id/RelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.NewsFragment"
-        >
+        tools:context=".fragments.NewsFragment">
+
 
         <AutoCompleteTextView
             android:id="@+id/tvSearch"
-            android:layout_width="333dp"
-            android:layout_height="46dp"
+            android:layout_width="134dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="18dp"
             android:hint="Enter ticker(s)"
             android:paddingBottom="0dp"
             android:textAlignment="center" />
 
         <Button
             android:id="@+id/btnSearch"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="154dp"
+            android:layout_toEndOf="@+id/tvSearch"
+            android:text="Search" />
+
+        <Button
+            android:id="@+id/btnAdvanced"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:text="Search" />
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="19dp"
+            android:text="Advanced " />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvArticles"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="398dp"
+            android:layout_height="665dp"
+            android:layout_below="@+id/tvSearch"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="-2dp"
-            android:layout_marginTop="53dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="-56dp" />
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="-34dp" />
+
+        <!--android:background="@android:color/transparent"-->
+
     </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

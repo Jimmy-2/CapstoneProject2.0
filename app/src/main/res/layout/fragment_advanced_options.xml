@@ -94,6 +94,7 @@
             android:inputType="none"
             tools:text="Newest First" />
     </com.google.android.material.textfield.TextInputLayout>
+
 </RelativeLayout>
 
 <!--android:startIconDrawable="@drawable/ic_feeling"

@@ -77,7 +77,6 @@ public class AdvancedOptionsFragment extends Fragment {
         // sharedPreferences will be used to save user queries.
         sharedPreferences = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
 
-        //itemCount = tvItemCount.getText().toString();
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,16 +98,11 @@ public class AdvancedOptionsFragment extends Fragment {
                 editor.putString("sort", item);
                 editor.commit();
 
-                Toast.makeText(getActivity(),sharedPreferences.getString("sort",""),Toast.LENGTH_LONG).show();
-
-                //String seekBarValue = Integer.toString(sbSentiment.getProgress());
-                // go back to news screen with item count saved
-                //FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                //transaction.replace(R.id.flContainer, new NewsFragment() ); // give your fragment container id in first parameter
-                //transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                //transaction.commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.flContainer, new NewsFragment() );
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
-
     }
 }

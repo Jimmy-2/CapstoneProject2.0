@@ -93,8 +93,6 @@ public class NewsFragment extends Fragment {
         rvArticles.setAdapter(articleAdapter);
         rvArticles.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-//        ArrayAdapter ;
-
         // set up a queue for get requests.
         requestQueue = Volley.newRequestQueue(this.getContext());
 
@@ -242,13 +240,12 @@ public class NewsFragment extends Fragment {
                     sort = "";
             }
 
+            // example url with all user functionality.
             //https://stocknewsapi.com/api/v1?tickers=FB&items=5&sourceexclude=CNBC&type=video&sentiment=positive&sortby=oldestfirst&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA";
             url = String.format("https://stocknewsapi.com/api/v1?tickers=%s&items=%s%s%s%s%s&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA", tickers, itemCount, sentiment,type,exclude, sort);
         }
 
         Toast.makeText(getActivity(),sharedPreferences.getString("sort",""),Toast.LENGTH_LONG).show();
-
-        //sharedPreferences.getString("typeFilter", "")
 
         // save url in shared preferences.
         SharedPreferences.Editor editor = sharedPreferences.edit();

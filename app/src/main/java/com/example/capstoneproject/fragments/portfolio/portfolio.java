@@ -165,7 +165,7 @@ public class portfolio extends Fragment {
         testbutton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
- /*5
+ /*
                 mysecondDB.addentry("12133","10/23/2021");
                 mysecondDB.addentry("12133","10/24/2021");
                 mysecondDB.addentry("14213","10/25/2021");
@@ -177,30 +177,7 @@ public class portfolio extends Fragment {
                 mysecondDB.addentry("7130","10/30/2021");
                 mysecondDB.addentry("0","11/01/2021");
 */
-
-                /*
-                fixsector("AAPL");
-
-                 */
-                /*
-                calcbal(testbalancesee);
-
-                 */
-
     startsetbalnce();
-
-
-
-/*
-                Intent intent = new Intent(getActivity(), achievementactivity.class);
-                activity.startActivityForResult(intent, 1);
-*/
-/*
-                checkifaddtobalancedb(); //check for add to database for the daily check
-
- */
-
-
     }
         });
 
@@ -575,6 +552,7 @@ public class portfolio extends Fragment {
                                         myDB.addstock(popup_stockname.getText().toString().trim(), p.getString("price"), Integer.parseInt(popup_stockamount.getText().toString()), p.getString("sector"));
                                         balanceDB.updateData(String.valueOf(returnbalanceid()), String.valueOf(x));
                                         tryredraw();
+                                        checkachievements(returnbalance());
                                         balanceee.setText(String.valueOf(returnbalance()));
                                         dialog.dismiss();
                                     }
@@ -868,7 +846,29 @@ public class portfolio extends Fragment {
         }
         return bal;
     }
+    void checkachievements(int value){
 
+        Cursor cursor = myAchievementDB.readAllData();
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No achievements, please set balance", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
+                System.out.println(Integer.valueOf(cursor.getString(2)));
+                if(value >= Integer.valueOf(cursor.getString(2))){
+                    if(Integer.valueOf(cursor.getString(0))>5){
+                        if(value <= Integer.valueOf(cursor.getString(2))){
+                            myAchievementDB.updateData2(cursor.getString(0),cursor.getString(1),cursor.getString(2),"true");
+
+                        }
+                    }
+                    else{
+                        myAchievementDB.updateData2(cursor.getString(0),cursor.getString(1),cursor.getString(2),"true");
+                    }
+
+                }
+            }
+        }
+    }
 }
 
 /*

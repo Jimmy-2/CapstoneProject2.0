@@ -92,6 +92,7 @@ public class updateportfolio extends AppCompatActivity {
                                     saveintialamount = Integer.parseInt(pages) + saveintialamount;
                                     pages = String.valueOf(saveintialamount);
                                     myDB.updateData(id, title, author, pages);
+                                    checkachievements(returnbalance());
                                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
                                     finish();

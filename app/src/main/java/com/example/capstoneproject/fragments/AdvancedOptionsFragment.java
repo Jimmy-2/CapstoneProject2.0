@@ -25,6 +25,7 @@ public class AdvancedOptionsFragment extends Fragment {
     EditText tvItemCount;
     EditText tvExclude;
     SeekBar sbSentiment;
+    SeekBar sbType;
     Button btnSearch;
 
     String itemCount;
@@ -51,6 +52,7 @@ public class AdvancedOptionsFragment extends Fragment {
         tvItemCount = (EditText)view.findViewById(R.id.tvItemCount);
         tvExclude = (EditText)view.findViewById(R.id.tvExclude);
         sbSentiment = view.findViewById(R.id.sbSentiment);
+        sbType = view.findViewById(R.id.sbType);
         mnSort = view.findViewById(R.id.mnSort);
         btnSearch = view.findViewById(R.id.btnSearchAdv);
 
@@ -73,13 +75,16 @@ public class AdvancedOptionsFragment extends Fragment {
                 editor.putString("sentimentFilter", Integer.toString(sbSentiment.getProgress()));
                 editor.commit();
 
+                editor.putString("typeFilter", Integer.toString(sbType.getProgress()));
+                editor.commit();
+
                 //String seekBarValue = Integer.toString(sbSentiment.getProgress());
                 // go back to news screen with item count saved
                 //FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 //transaction.replace(R.id.flContainer, new NewsFragment() ); // give your fragment container id in first parameter
                 //transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                 //transaction.commit();
-                Toast.makeText(getActivity(),sharedPreferences.getString("sentimentFilter", "") ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),sharedPreferences.getString("typeFilter", "") ,Toast.LENGTH_SHORT).show();
             }
         });
 

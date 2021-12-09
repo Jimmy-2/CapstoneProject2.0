@@ -60,6 +60,9 @@ public class NewsFragment extends Fragment {
     String tickers;
     String url ;
     String sentiment;
+    String type;
+    String itemCount;
+    String exclude;
 
     public NewsFragment() {}
 
@@ -180,50 +183,67 @@ public class NewsFragment extends Fragment {
     }
 
     private void jsonParse(){
-        // if tickers text field is empty
-        if(tvSearch.getText().toString() == ""){
-            // try to get tickers from last search.
-            //tickers = sharedPreferences.getString(url, "");
-            tickers = "";
+        // if tickers text field is empty, make a default search. set url to general market news.
+        if(tvSearch.getText().toString().equals("")){
+            url = "https://stocknewsapi.com/api/v1/category?section=general&items=50&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj";
         }
         else{
-            // else get tickers from text field.
+            // else create new url for request.
+
+            // set tickers.
             tickers = tvSearch.getText().toString();
+
+            // set item count.
+            itemCount = sharedPreferences.getString("itemCount", "");
+            if(itemCount.equals("")){
+                itemCount = "10";
+            }
+
+            // set exclude source.
+            exclude = sharedPreferences.getString("","");
+            if(exclude!=""){
+                exclude = "&sourceexclude=" + exclude;
+            }
+
+            // set sentiment.
+            switch(sharedPreferences.getString("sentimentFilter", "")){
+                case "0":
+                    sentiment = "&sentiment=negative";
+                    break;
+                case "2":
+                    sentiment = "&sentiment=positive";
+                    break;
+                default:
+                    sentiment = "";
+            }
+
+            // set type.
+            switch(sharedPreferences.getString("typeFilter", "")){
+                case "0":
+                    type = "&type=video";
+                    break;
+                case "2":
+                    type = "&type=article";
+                    break;
+                default:
+                    type = "";
+            }
+
+
+            //https://stocknewsapi.com/api/v1?tickers=FB&items=5&sourceexclude=CNBC&type=video&sentiment=positive&sortby=oldestfirst&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA";
+            url = String.format("https://stocknewsapi.com/api/v1?tickers=%s&items=%s%s%s%s&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA", tickers, itemCount, sentiment,type,exclude);
         }
 
-        // if item count text field is empty
-        //if(tvItemCount.getText().toString() == ""){
-        // try to get item count from last search.
-        //numItems = sharedPreferences.getString(url, "");
-        //  numItems = "10";
-        //}
-        //else{
-        // else get item count from text field.
-        //  numItems = tvItemCount.getText().toString();
-        //}
+        Toast.makeText(getActivity(),url,Toast.LENGTH_LONG).show();
 
-        // create url for get request.
-        Toast.makeText(getActivity(),sharedPreferences.getString("sentimentFilter", ""),Toast.LENGTH_SHORT).show();
-
-       switch(sharedPreferences.getString("sentimentFilter", "")){
-           case "0":
-               sentiment = "negative";
-               break;
-           case "2":
-               sentiment = "positive";
-               break;
-           default:
-               sentiment = "";
-       }
-
-        url = String.format("https://stocknewsapi.com/api/v1?tickers=%s&items=%s&sourceexclude=%s&sentiment=%s&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA",tickers,sharedPreferences.getString("itemCount", ""),sharedPreferences.getString("excludeSource", ""), sentiment);
+        //sharedPreferences.getString("typeFilter", "")
 
         // save url in shared preferences.
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("url", url);
         editor.commit();
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, this.url, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

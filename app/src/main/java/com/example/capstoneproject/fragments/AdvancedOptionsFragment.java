@@ -10,6 +10,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -17,6 +20,8 @@ import android.widget.Toast;
 
 import com.example.capstoneproject.R;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.lang.reflect.Array;
 
 public class AdvancedOptionsFragment extends Fragment {
     SharedPreferences sharedPreferences;
@@ -28,7 +33,10 @@ public class AdvancedOptionsFragment extends Fragment {
     SeekBar sbType;
     Button btnSearch;
 
-    String itemCount;
+    AutoCompleteTextView autoCompleteTextView;
+    ArrayAdapter<String> adapterItems;
+    String[] items = {"Newest First", "Oldest First", "Rank"};
+    String item;
 
     public AdvancedOptionsFragment() {
         // Required empty public constructor
@@ -53,8 +61,19 @@ public class AdvancedOptionsFragment extends Fragment {
         tvExclude = (EditText)view.findViewById(R.id.tvExclude);
         sbSentiment = view.findViewById(R.id.sbSentiment);
         sbType = view.findViewById(R.id.sbType);
-        mnSort = view.findViewById(R.id.mnSort);
         btnSearch = view.findViewById(R.id.btnSearchAdv);
+
+        // set up sort drop down menu
+        autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
+        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.dropdown_item, items);
+        autoCompleteTextView.setAdapter(adapterItems);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(getContext(), item ,Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // sharedPreferences will be used to save user queries.
         sharedPreferences = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
@@ -84,7 +103,6 @@ public class AdvancedOptionsFragment extends Fragment {
                 //transaction.replace(R.id.flContainer, new NewsFragment() ); // give your fragment container id in first parameter
                 //transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                 //transaction.commit();
-                Toast.makeText(getActivity(),sharedPreferences.getString("typeFilter", "") ,Toast.LENGTH_SHORT).show();
             }
         });
 

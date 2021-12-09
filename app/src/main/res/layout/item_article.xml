@@ -5,8 +5,9 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/back"
-    >
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/back">
+
     <ImageView
         android:id="@+id/ivThumbnail"
         android:layout_width="120dp"
@@ -18,14 +19,6 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvSentiment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivThumbnail"
-        android:layout_marginTop="0dp"
-        android:text="TextView" />
-
-    <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +26,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivThumbnail"
-        android:textSize="24sp"
+        android:fontFamily="sans-serif-black"
+        android:textSize="26sp"
         tools:text="The Tomorrow War" />
 
     <TextView
@@ -46,6 +40,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="6dp"
         android:layout_toEndOf="@+id/ivThumbnail"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="16dp"
         tools:text="The world is stunned when a group of time travelers arrive from the year 2051 to deliver an urgent message: Thirty years in the future, mankind is losing a global war against a deadly alien species. The only hope for survival is for soldiers and civilians from the present to be transported to the future and join the fight. Among those recruited is high school teacher and family man Dan Forester. Determined to save the world for his young daughter, Dan teams up with a brilliant scientist and his estranged father in a desperate quest to rewrite the fate of the planet." />
 
     <TextView
@@ -55,6 +51,20 @@
         android:layout_below="@+id/tvText"
         android:layout_alignParentStart="true"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:fontFamily="monospace"
+        android:textSize="14dp"
+        tools:text="FB, DIS" />
+
+    <ImageView
+        android:id="@+id/ivSentIm"
+        android:layout_width="46dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="73dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>

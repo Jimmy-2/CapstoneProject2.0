@@ -8,99 +8,97 @@
     tools:context=".MainActivity">
 
 
+    <ScrollView
+        android:id="@+id/form_layout3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#48A6E8A9">
 
-        <ScrollView
-            android:id="@+id/form_layout3"
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
 
+            <EditText
+                android:id="@+id/etSearchAlert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0sp"
+                android:layout_toStartOf="@+id/btnSearchAlert"
+                android:ems="10"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:hint="Search Stock Ticker"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btnSearchAlert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:backgroundTint="#FFEB3B"
+                app:srcCompat="@drawable/ic_baseline_search_24"
+                tools:ignore="SpeakableTextPresentCheck" />
 
 
-                <EditText
-                    android:id="@+id/etSearchAlert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="0sp"
-                    android:layout_toStartOf="@+id/btnSearchAlert"
-                    android:ems="10"
-                    android:gravity="center|center_horizontal|center_vertical"
-                    android:hint="Search Stock Ticker"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPersonName"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="328dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etSearchAlert"
+                android:layout_marginTop="0dp"
+                android:background="#93C5B9"
+                android:gravity="center"
+                android:text="Price Movement Alerts"
+                android:textSize="20sp" />
 
-                <ImageButton
-                    android:id="@+id/btnSearchAlert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:backgroundTint="#FFEB3B"
-                    app:srcCompat="@drawable/ic_baseline_search_24"
-                    tools:ignore="SpeakableTextPresentCheck" />
+            <Spinner
+                android:id="@+id/sortSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etSearchAlert"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_toEndOf="@+id/textView4"
+                tools:ignore="SpeakableTextPresentCheck" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAlerts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/textView4"
+                android:layout_marginTop="0dp" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="328dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/etSearchAlert"
-                    android:layout_marginTop="0dp"
-                    android:background="#93C5B9"
-                    android:gravity="center"
-                    android:text="Price Movement Alerts"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvAlerts"
+                android:layout_marginTop="0dp"
+                android:background="#546360"
+                android:gravity="center"
+                android:text="Completed Price Movement Alerts "
+                android:textSize="20sp" />
 
-                <Spinner
-                    android:id="@+id/sortSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/etSearchAlert"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_toEndOf="@+id/textView4"
-                    tools:ignore="SpeakableTextPresentCheck" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCompleted"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/textView15"
+                android:layout_marginTop="0dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvAlerts"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/textView4"
-                    android:layout_marginTop="0dp" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rvAlerts"
-                    android:layout_marginTop="0dp"
-                    android:background="#546360"
-                    android:gravity="center"
-                    android:text="Completed Price Movement Alerts "
-                    android:textSize="20sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCompleted"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/textView15"
-                    android:layout_marginTop="0dp"/>
-
-            </RelativeLayout>
+        </RelativeLayout>
 
 
-        </ScrollView>
+    </ScrollView>
 
 
 

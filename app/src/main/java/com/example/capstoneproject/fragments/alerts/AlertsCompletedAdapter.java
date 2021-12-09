@@ -1,3 +1,7 @@
+/**
+ * Created by Jimmy.
+ * */
+
 package com.example.capstoneproject.fragments.alerts;
 
 import android.content.Context;
@@ -21,17 +25,17 @@ import java.util.ArrayList;
 public class AlertsCompletedAdapter extends RecyclerView.Adapter<AlertsCompletedAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList alert_id, symbol, name, currentPrice, alertPrice;
+    ArrayList alert_id, symbol, name, time, alertPrice;
 
 
 
 
-    public AlertsCompletedAdapter(Context context, ArrayList alert_id, ArrayList symbol, ArrayList name, ArrayList currentPrice, ArrayList alertPrice) {
+    public AlertsCompletedAdapter(Context context, ArrayList alert_id, ArrayList symbol, ArrayList name, ArrayList time, ArrayList alertPrice) {
         this.context = context;
         this.alert_id = alert_id;
         this.symbol = symbol;
         this.name = name;
-        this.currentPrice = currentPrice;
+        this.time = time;
         this.alertPrice = alertPrice;
     }
 
@@ -52,7 +56,7 @@ public class AlertsCompletedAdapter extends RecyclerView.Adapter<AlertsCompleted
         //holder.tvAlertIdRC.setText(String.valueOf(alert_id.get(position)));
         holder.tvSymbolRC.setText(String.valueOf(symbol.get(position)));
         holder.tvNameRC.setText(String.valueOf(name.get(position)));
-        holder.tvCurrentPriceRC.setText(String.valueOf(currentPrice.get(position)));
+        holder.tvCurrentPriceRC.setText(String.valueOf(time.get(position)));
         holder.tvAlertPriceRC.setText(String.valueOf(alertPrice.get(position)));
 
         holder.alertCompletedLayout.setOnClickListener(new View.OnClickListener() {
@@ -111,8 +115,8 @@ public class AlertsCompletedAdapter extends RecyclerView.Adapter<AlertsCompleted
                         //Toast.makeText(context, "delete"+position,  Toast.LENGTH_SHORT).show();
 
 
-                        AlertsDatabaseHelper alertDB = new AlertsDatabaseHelper(ivDeleteAlert.getContext());
-                        alertDB.deleteRow(String.valueOf(alert_id.get(position)));
+                        AlertsCompletedDatabaseHelper alertCompletedDB = new AlertsCompletedDatabaseHelper(ivDeleteAlert.getContext());
+                        alertCompletedDB.deleteRow(String.valueOf(alert_id.get(position)));
 
                     }
 

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CapstoneProject</string>
+    <string name="select">Select Item</string>>
+    <string-array name="sort_by">
+        <item>Newest First</item>
+        <item>Oldest First</item>
+        <item>Rank</item>
+    </string-array>
 </resources>

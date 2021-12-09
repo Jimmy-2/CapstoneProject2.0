@@ -105,7 +105,7 @@
             <TextView
                 android:id="@+id/tvCurrentPriceRC"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="32sp"
                 android:layout_above="@+id/view4"
                 android:layout_marginStart="0dp"
                 android:layout_marginEnd="0dp"
@@ -114,8 +114,8 @@
                 android:layout_toEndOf="@+id/view6"
                 android:background="#546360"
                 android:gravity="center"
-                android:text="11:23"
-                android:textSize="20sp" />
+                android:text="Dec 6, 2021 10:58:39 PM"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -144,7 +144,7 @@
             <TextView
                 android:id="@+id/tvAlertPriceRC"
                 android:layout_width="140sp"
-                android:layout_height="wrap_content"
+                android:layout_height="32sp"
                 android:layout_above="@+id/view4"
                 android:layout_marginStart="0dp"
                 android:layout_marginBottom="0dp"
@@ -152,7 +152,7 @@
                 android:background="#546360"
                 android:gravity="center"
                 android:text="199.33"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
             <ImageView
                 android:id="@+id/ivDeleteAlert"

@@ -1,3 +1,8 @@
+/**
+ * Created by Jimmy.
+ * */
+
+
 package com.example.capstoneproject.fragments.alerts;
 
 import android.database.Cursor;
@@ -45,9 +50,12 @@ public class AlertsFragment extends Fragment {
     SortDatabaseHelper sortDB;
     ArrayList<String> sortSettings;
 
+    ArrayList<String> alert_id, symbol, name, currentPrice, alertPrice, alert_id_Completed, symbolCompleted, nameCompleted, timeCompleted, alertPriceCompleted;
+
     AlertsDatabaseHelper alertDB;
-    ArrayList<String> alert_id, symbol, name, currentPrice, alertPrice;
     AlertsAdapter alertsAdapter;
+
+    AlertsCompletedDatabaseHelper alertCompletedDB;
     AlertsCompletedAdapter alertsCompletedAdapter;
 
     SwipeRefreshLayout swipeContainer;
@@ -138,30 +146,20 @@ public class AlertsFragment extends Fragment {
         if(sortSettings.get(1).equals(String.valueOf(1))) {
             sortingCol = "_id";
             sortingOrder = "Asc";
-            sortItems = new String[] { "Date \u2191", "Date \u2193", "Name \u2191", "Name \u2193","Price \u2191", "Price \u2193" };
+            sortItems = new String[] { "Date \u2191", "Date \u2193", "Name \u2191", "Name \u2193"};
         }else if(sortSettings.get(2).equals(String.valueOf(1))) {
             sortingCol = "_id";
             sortingOrder = "Desc";
-            sortItems = new String[] { "Date \u2193", "Date \u2191", "Name \u2191", "Name \u2193","Price \u2191", "Price \u2193" };
+            sortItems = new String[] { "Date \u2193", "Date \u2191", "Name \u2191", "Name \u2193"};
         }else if(sortSettings.get(3).equals(String.valueOf(1))) {
             sortingCol = "symbol";
             sortingOrder = "Asc";
-            sortItems = new String[] { "Name \u2191", "Name \u2193", "Date \u2191", "Date \u2193", "Price \u2191", "Price \u2193" };
+            sortItems = new String[] { "Name \u2191", "Name \u2193", "Date \u2191", "Date \u2193"};
         }else if(sortSettings.get(4).equals(String.valueOf(1))) {
             sortingCol = "symbol";
             sortingOrder = "Desc";
-            sortItems = new String[] { "Name \u2193", "Name \u2191", "Date \u2191", "Date \u2193", "Price \u2191", "Price \u2193" };
-        }else if(sortSettings.get(5).equals(String.valueOf(1))) {
-            sortingCol = "currentPrice";
-            sortingOrder = "Asc";
-            sortItems = new String[] {"Price \u2191", "Price \u2193", "Date \u2191", "Date \u2193", "Name \u2191", "Name \u2193" };
-        }else if(sortSettings.get(6).equals(String.valueOf(1))) {
-            sortingCol = "currentPrice";
-            sortingOrder = "Desc";
-            sortItems = new String[] { "Price \u2193", "Price \u2191", "Date \u2191", "Date \u2193", "Name \u2191", "Name \u2193" };
+            sortItems = new String[] { "Name \u2193", "Name \u2191", "Date \u2191", "Date \u2193"};
         }
-
-
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
@@ -204,21 +202,15 @@ public class AlertsFragment extends Fragment {
 
     void checkSelection() {
         if(sortSpinner.getSelectedItem().toString().equals("Date \u2191")) {
-            sortDB.updateSortSetting("1","0","0","0","0","0");
+            sortDB.updateSortSetting("1","0","0","0");
         }else if(sortSpinner.getSelectedItem().toString().equals("Date \u2193")) {
-            sortDB.updateSortSetting("0","1","0","0","0","0");
+            sortDB.updateSortSetting("0","1","0","0");
         }
         else if(sortSpinner.getSelectedItem().toString().equals("Name \u2191")) {
-            sortDB.updateSortSetting("0","0","1","0","0","0");
+            sortDB.updateSortSetting("0","0","1","0");
         }
         else if(sortSpinner.getSelectedItem().toString().equals("Name \u2193")) {
-            sortDB.updateSortSetting("0","0","0","1","0","0");
-        }
-        else if(sortSpinner.getSelectedItem().toString().equals("Price \u2191")) {
-            sortDB.updateSortSetting("0","0","0","0","1","0");
-        }
-        else if(sortSpinner.getSelectedItem().toString().equals("Price \u2193")) {
-            sortDB.updateSortSetting("0","0","0","0","0","1");
+            sortDB.updateSortSetting("0","0","0","1");
         }
         getFragmentManager().beginTransaction().replace(R.id.flContainer, new AlertsFragment()).commit();
 
@@ -239,14 +231,23 @@ public class AlertsFragment extends Fragment {
         currentPrice = new ArrayList<>();
         alertPrice = new ArrayList<>();
 
+        alertCompletedDB = new AlertsCompletedDatabaseHelper(getActivity());
+        alert_id_Completed = new ArrayList<>();
+        symbolCompleted = new ArrayList<>();
+        nameCompleted = new ArrayList<>();
+        timeCompleted = new ArrayList<>();
+        alertPriceCompleted = new ArrayList<>();
+
         //grab data from alerts database and store it in array
         storeAlertsDataInArrays();
+        //grab data from alerts completed database and store it in array
+        storeAlertsCompletedDataInArrays();
 
         alertsAdapter = new AlertsAdapter(getContext(), alert_id, symbol, name, currentPrice, alertPrice);
         alertRecyclerView.setAdapter(alertsAdapter);
         alertRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        alertsCompletedAdapter = new AlertsCompletedAdapter(getContext(), alert_id, symbol, name, currentPrice, alertPrice);
+        alertsCompletedAdapter = new AlertsCompletedAdapter(getContext(), alert_id_Completed, symbolCompleted, nameCompleted, timeCompleted, alertPriceCompleted);
         alertCompletedRecyclerView.setAdapter(alertsCompletedAdapter);
         alertCompletedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -258,7 +259,7 @@ public class AlertsFragment extends Fragment {
     void setSortSettings() {
         sortDB = new SortDatabaseHelper(getActivity());
         if (sortDB.getSortCount() < 1) {
-            sortDB.addSort(1, 0, 0, 0, 0, 0);
+            sortDB.addSort(1, 0, 0, 0);
         }
 
     }
@@ -274,9 +275,6 @@ public class AlertsFragment extends Fragment {
                 sortSettings.add(cursor.getString(2));
                 sortSettings.add(cursor.getString(3));
                 sortSettings.add(cursor.getString(4));
-                sortSettings.add(cursor.getString(5));
-                sortSettings.add(cursor.getString(6));
-
             }
         }
     }
@@ -295,6 +293,22 @@ public class AlertsFragment extends Fragment {
                 name.add(cursor.getString(2));
                 currentPrice.add(cursor.getString(3));
                 alertPrice.add(cursor.getString(4));
+
+            }
+        }
+    }
+
+    void storeAlertsCompletedDataInArrays() {
+        Cursor cursor = alertCompletedDB.readAllDataSorted(sortingCol, sortingOrder);
+        if(cursor.getCount() == 0) {
+            //Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+        }else {
+            while(cursor.moveToNext()) {
+                alert_id_Completed.add(cursor.getString(0));
+                symbolCompleted.add(cursor.getString(1));
+                nameCompleted.add(cursor.getString(2));
+                timeCompleted.add(cursor.getString(3));
+                alertPriceCompleted.add(cursor.getString(4));
 
             }
         }

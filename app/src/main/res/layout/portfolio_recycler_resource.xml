@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/portfoliorecyclerlayout"
@@ -14,10 +14,7 @@
         android:layout_height="52dp"
         android:layout_marginBottom="10dp"
         android:text="Stock:"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/stockinfotextview"
@@ -26,10 +23,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/stocknamelist"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/stockinfotextviewprice"
@@ -37,10 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/stockinfotextview"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/portfoliorecyclerstockamount"
@@ -48,10 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/stockinfotextviewprice"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/textView7"
@@ -59,21 +47,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/portfoliorecyclerstockamount"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/deletebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="271dp"
-        android:text="Modify"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/stocknamelist"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Modify" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

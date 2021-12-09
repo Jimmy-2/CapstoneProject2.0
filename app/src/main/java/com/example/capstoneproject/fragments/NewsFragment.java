@@ -59,7 +59,11 @@ public class NewsFragment extends Fragment {
     //String numItems;
     String tickers;
     String url ;
-
+    String sentiment;
+    String type;
+    String itemCount;
+    String exclude;
+    String sort;
 
     public NewsFragment() {}
 
@@ -88,8 +92,6 @@ public class NewsFragment extends Fragment {
         articleAdapter = new ArticleAdapter(this.getContext(), articles);
         rvArticles.setAdapter(articleAdapter);
         rvArticles.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
-//        ArrayAdapter ;
 
         // set up a queue for get requests.
         requestQueue = Volley.newRequestQueue(this.getContext());
@@ -180,39 +182,77 @@ public class NewsFragment extends Fragment {
     }
 
     private void jsonParse(){
-        // if tickers text field is empty
-        if(tvSearch.getText().toString() == ""){
-            // try to get tickers from last search.
-            //tickers = sharedPreferences.getString(url, "");
-            tickers = "";
+        // if tickers text field is empty, make a default search. set url to general market news.
+        if(tvSearch.getText().toString().equals("")){
+            url = "https://stocknewsapi.com/api/v1/category?section=general&items=50&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj";
         }
         else{
-            // else get tickers from text field.
+            // else create new url for request.
+
+            // set tickers.
             tickers = tvSearch.getText().toString();
+
+            // set item count.
+            itemCount = sharedPreferences.getString("itemCount", "");
+            if(itemCount.equals("")){
+                itemCount = "10";
+            }
+
+            // set exclude source.
+            exclude = sharedPreferences.getString("","");
+            if(exclude!=""){
+                exclude = "&sourceexclude=" + exclude;
+            }
+
+            // set sentiment.
+            switch(sharedPreferences.getString("sentimentFilter", "")){
+                case "0":
+                    sentiment = "&sentiment=negative";
+                    break;
+                case "2":
+                    sentiment = "&sentiment=positive";
+                    break;
+                default:
+                    sentiment = "";
+            }
+
+            // set type.
+            switch(sharedPreferences.getString("typeFilter", "")){
+                case "0":
+                    type = "&type=video";
+                    break;
+                case "2":
+                    type = "&type=article";
+                    break;
+                default:
+                    type = "";
+            }
+
+            // set sort.
+            switch(sharedPreferences.getString("sort", "")){
+                case "Oldest First":
+                    sort = "&sortby=oldestfirst";
+                    break;
+                case "Rank":
+                    sort = "&sortby=rank";
+                    break;
+                default:
+                    sort = "";
+            }
+
+            // example url with all user functionality.
+            //https://stocknewsapi.com/api/v1?tickers=FB&items=5&sourceexclude=CNBC&type=video&sentiment=positive&sortby=oldestfirst&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA";
+            url = String.format("https://stocknewsapi.com/api/v1?tickers=%s&items=%s%s%s%s%s&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA", tickers, itemCount, sentiment,type,exclude, sort);
         }
 
-        // if item count text field is empty
-        //if(tvItemCount.getText().toString() == ""){
-        // try to get item count from last search.
-        //numItems = sharedPreferences.getString(url, "");
-        //  numItems = "10";
-        //}
-        //else{
-        // else get item count from text field.
-        //  numItems = tvItemCount.getText().toString();
-        //}
-
-        // create url for get request.
-        Toast.makeText(getActivity(),sharedPreferences.getString("excludeSource", ""),Toast.LENGTH_SHORT).show();
-
-        url = String.format("https://stocknewsapi.com/api/v1?tickers=%s&items=%s&sourceexclude=%s&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA",tickers,sharedPreferences.getString("itemCount", ""),sharedPreferences.getString("excludeSource", ""));
+        Toast.makeText(getActivity(),sharedPreferences.getString("sort",""),Toast.LENGTH_LONG).show();
 
         // save url in shared preferences.
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("url", url);
         editor.commit();
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, this.url, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

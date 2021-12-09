@@ -71,7 +71,6 @@ public class AdvancedOptionsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getContext(), item ,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -96,6 +95,11 @@ public class AdvancedOptionsFragment extends Fragment {
 
                 editor.putString("typeFilter", Integer.toString(sbType.getProgress()));
                 editor.commit();
+
+                editor.putString("sort", item);
+                editor.commit();
+
+                Toast.makeText(getActivity(),sharedPreferences.getString("sort",""),Toast.LENGTH_LONG).show();
 
                 //String seekBarValue = Integer.toString(sbSentiment.getProgress());
                 // go back to news screen with item count saved

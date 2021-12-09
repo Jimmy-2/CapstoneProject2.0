@@ -5,7 +5,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
     android:background="@drawable/back">
 
     <ImageView
@@ -52,6 +51,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="120dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="monospace"
         android:textSize="14dp"
         tools:text="FB, DIS" />

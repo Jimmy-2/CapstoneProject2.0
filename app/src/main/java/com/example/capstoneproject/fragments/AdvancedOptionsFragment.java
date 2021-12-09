@@ -80,6 +80,10 @@ public class AdvancedOptionsFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        tvExclude.setText(sharedPreferences.getString("excludeSource",""));
+        tvItemCount.setText(sharedPreferences.getString("itemCount",""));
+        sbType.setProgress(Integer.parseInt(sharedPreferences.getString("typeFilter","")));
+        sbSentiment.setProgress(Integer.parseInt(sharedPreferences.getString("sentimentFilter","")));
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -32,6 +32,7 @@ public class AdvancedOptionsFragment extends Fragment {
     SeekBar sbSentiment;
     SeekBar sbType;
     Button btnSearch;
+    Button btnReset;
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItems;
@@ -62,6 +63,7 @@ public class AdvancedOptionsFragment extends Fragment {
         sbSentiment = view.findViewById(R.id.sbSentiment);
         sbType = view.findViewById(R.id.sbType);
         btnSearch = view.findViewById(R.id.btnSearchAdv);
+        btnReset = view.findViewById(R.id.btnReset);
 
         // set up sort drop down menu
         autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
@@ -76,13 +78,17 @@ public class AdvancedOptionsFragment extends Fragment {
 
         // sharedPreferences will be used to save user queries.
         sharedPreferences = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        tvExclude.setText(sharedPreferences.getString("excludeSource",""));
+        tvItemCount.setText(sharedPreferences.getString("itemCount",""));
+        sbType.setProgress(Integer.parseInt(sharedPreferences.getString("typeFilter","")));
+        sbSentiment.setProgress(Integer.parseInt(sharedPreferences.getString("sentimentFilter","")));
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // save numItems in shared preferences.
-                SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("itemCount", tvItemCount.getText().toString());
                 editor.commit();
 
@@ -102,6 +108,31 @@ public class AdvancedOptionsFragment extends Fragment {
                 transaction.replace(R.id.flContainer, new NewsFragment() );
                 transaction.addToBackStack(null);
                 transaction.commit();
+            }
+        });
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor.putString("itemCount", "10");
+                tvItemCount.setText("10");
+                editor.commit();
+
+                editor.putString("excludeSource", "");
+                tvExclude.setText("");
+                editor.commit();
+
+                editor.putString("sentimentFilter", "1");
+                sbSentiment.setProgress(1);
+                editor.commit();
+
+                editor.putString("typeFilter", "1");
+                sbType.setProgress(1);
+                editor.commit();
+
+                editor.putString("sort", "");
+                autoCompleteTextView.setText("Newest First");
+                editor.commit();
             }
         });
     }

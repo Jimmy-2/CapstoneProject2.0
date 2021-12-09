@@ -13,23 +13,24 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="91dp"
-        android:layout_marginTop="58dp"
-        android:hint="Exclude Source(s)"
-        tools:text="Exclude ticker(s)" />
+        android:layout_marginStart="183dp"
+        android:layout_marginTop="125dp"
+        android:hint="CNBC"
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/tvItemCount"
-        android:layout_width="226dp"
-        android:layout_height="68dp"
+        android:layout_width="wrap_content"
+        android:layout_height="83dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="113dp"
+        android:layout_marginStart="187dp"
+        android:layout_marginTop="223dp"
         android:ems="10"
-        android:hint="Item Count"
-        android:inputType="number" />
+        android:hint="0-50"
+        android:inputType="number"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/btnReset"
@@ -37,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="87dp"
-        android:layout_marginBottom="172dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginBottom="51dp"
         android:text="Reset" />
 
     <Button
@@ -47,33 +48,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="89dp"
-        android:layout_marginBottom="173dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="66dp"
         android:text="Save" />
 
     <SeekBar
         android:id="@+id/sbSentiment"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="167dp"
-        android:layout_height="84dp"
+        android:layout_width="252dp"
+        android:layout_height="73dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="117dp"
-        android:layout_marginBottom="326dp"
+        android:layout_marginStart="81dp"
+        android:layout_marginBottom="266dp"
         android:max="2"
         android:progress="1" />
 
     <SeekBar
         android:id="@+id/sbType"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
+        android:layout_width="257dp"
+        android:layout_height="64dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="132dp"
-        android:layout_marginBottom="297dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginBottom="154dp"
         android:max="2"
         android:progress="1" />
 
@@ -89,11 +90,83 @@
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="61dp"
             android:layout_weight="1"
             android:inputType="none"
             tools:text="Newest First" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvNeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sbSentiment"
+        android:layout_below="@+id/tvItemCount"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="20dp"
+        android:text="Negative" />
+
+    <TextView
+        android:id="@+id/tvPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="123dp"
+        android:text="Positive" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="186dp"
+        android:text="All" />
+
+    <TextView
+        android:id="@+id/tvVideos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="222dp"
+        android:text="Videos" />
+
+    <TextView
+        android:id="@+id/tvArticles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="221dp"
+        android:text="Articles" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="185dp"
+        android:layout_marginBottom="225dp"
+        android:text="All" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="171dp"
+        android:layout_height="49dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="152dp"
+        android:text="Exclude Sources: "
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
 </RelativeLayout>
 

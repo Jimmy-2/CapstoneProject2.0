@@ -99,6 +99,8 @@ public class NewsFragment extends Fragment {
         // sharedPreferences will be used to save user queries.
         sharedPreferences = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
 
+        tvSearch.setText(sharedPreferences.getString("tickers",""));
+
         // populate recyclerview using url saved from previous search.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, sharedPreferences.getString("url", "") , null,
                 new Response.Listener<JSONObject>() {
@@ -174,6 +176,11 @@ public class NewsFragment extends Fragment {
     }
 
     private void openAdvancedOptions(){
+        // save tickers
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("tickers", tickers);
+        editor.commit();
+
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.flContainer, new AdvancedOptionsFragment() ); // give your fragment container id in first parameter
         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack

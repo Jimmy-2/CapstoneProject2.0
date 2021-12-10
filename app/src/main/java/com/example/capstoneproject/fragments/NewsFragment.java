@@ -99,7 +99,11 @@ public class NewsFragment extends Fragment {
         // sharedPreferences will be used to save user queries.
         sharedPreferences = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
 
-        tvSearch.setText(sharedPreferences.getString("tickers",""));
+        try{
+            tvSearch.setText(sharedPreferences.getString("tickers",""));
+        }catch(Exception e){
+            tvSearch.setText("");
+        }
 
         // populate recyclerview using url saved from previous search.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, sharedPreferences.getString("url", "") , null,

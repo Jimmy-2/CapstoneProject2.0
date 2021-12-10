@@ -47,26 +47,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#93C5B9"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.244"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popupaddstockcrypto_amount"
-        app:layout_constraintVertical_bias="0.087"
-        android:text="Save"/>
+        app:layout_constraintVertical_bias="0.087" />
 
     <Button
         android:id="@+id/popupaddstockcrypto_cancelbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#93C5B9"
+        android:text="Exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.783"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popupaddstockcrypto_amount"
-        app:layout_constraintVertical_bias="0.087"
-        android:text= "Exit"/>
+        app:layout_constraintVertical_bias="0.087" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

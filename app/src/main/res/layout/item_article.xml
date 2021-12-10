@@ -68,3 +68,5 @@
         tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>
+
+<!--android:background="@drawable/back">

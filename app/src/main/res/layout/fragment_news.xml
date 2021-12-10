@@ -10,7 +10,7 @@
         android:id="@+id/RelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#48A6E8A9"
+        android:background="#FFFAF1"
         tools:context=".fragments.NewsFragment">
 
 
@@ -34,6 +34,7 @@
             android:layout_marginStart="9dp"
             android:layout_marginTop="13dp"
             android:layout_toEndOf="@+id/tvSearch"
+            android:backgroundTint="#e8a6e5"
             android:text="Search" />
 
         <Button
@@ -46,6 +47,7 @@
             android:layout_marginTop="13dp"
             android:layout_marginEnd="7dp"
             android:layout_toEndOf="@+id/btnSearch"
+            android:backgroundTint="#e8a6e5"
             android:text="Advanced " />
 
         <androidx.recyclerview.widget.RecyclerView

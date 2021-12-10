@@ -31,7 +31,7 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 * 2nd tab: Papertrading
     * Users can set a balance and start buying and selling stocks in our Paper trading game. The paper trading game includes achievements which are make 2 times your initial amount of money, have five times the intial amount of your money, have a million dollars in your balance, end up with 75% of your original balance and so on. The daily balance chart takes your current balance when you start the app for the first time in a day. The stock sector pie chart refreshes and displays the percentage of your portfolio that is of a certain sector. So if you were to have only technology stocks, your pie chart would be 100% techology. If you were to have 50% technology and 50% farming, your pie chart would reflect that.
 * 3rd tab: News
-    * 
+    *  User can search for news pertaining to a stock or stocks which will then fill a recyclerview with articles/videos about that stock(s). The news item includes a title, abstract, sentiment about the article, a thumbnail, and list of associated stocks. The user can then click on a news item to have the associated link opened in their browser or video player. This tab also includes a button that takes the user to an "advanced options" screen, which allows them to save preferences for their search such as how the results will be sorted, which news sources to exclude from the results, how many results to show, what type of sentiment they want to see, and which type of news item (article/video/all) they want to see. 
 * Graph Screen
     * 
 

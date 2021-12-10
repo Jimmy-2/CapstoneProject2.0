@@ -10,7 +10,7 @@
 Group members:
 
 
-[Ariq Zaman](https://github.com/ariqzaman) - Graphs
+[Ariq Zaman](https://github.com/ariqzaman) - Graphs and Charts
 
 [Brian Nan](https://github.com/DogEnjoyer) - Papertrading
 

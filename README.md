@@ -38,7 +38,7 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 ### 2. Navigation
 
 **Bottom Navigation Bar** (3 Tabs - Users can navigate through the tabs by clicking on the navigation bar items) 
-* Alerts Tab - Navigate to the Add Alerts Screen by searching for a viable stock ticker. If the ticker does not exist, no navigation will occur. Users can also navigate to the timeseries graph screen by clicking on an alert.
+* Alerts Tab - Navigate to the Add Alerts Screen by searching for a viable stock ticker. If the ticker does not exist, no navigation will occur. After successfully adding an alert, the user will be taken back to the Alerts home screen. The user can also hap the back button if they do not wish to add an alert. Users can also navigate to the timeseries graph screen by clicking on an alert.
 * Paper Trading Tab - Navigate to the timeseries graph screen by clicking on an alert.
 * News Tab
 

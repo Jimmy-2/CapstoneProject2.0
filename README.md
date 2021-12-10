@@ -37,8 +37,8 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 
 ### 2. Navigation
 
-**Bottom Navigation Bar** (3 Tabs) 
-* Alerts Tab
+**Bottom Navigation Bar** (3 Tabs - Users can navigate through the tabs by clicking on the navigation bar items) 
+* Alerts Tab - 
 * Paper Trading Tab
 * News Tab
 

@@ -139,7 +139,7 @@ public class ExecutableService extends BroadcastReceiver {
                                 Notification.Builder notification = new Notification.Builder
                                         (context, CHANNEL_ID).setContentTitle("PRICE ALERT").setContentText(symbol.get(i)+" has reached higher than your alert price of " + alertPrice.get(i)).setSmallIcon(R.drawable.ic_launcher_background).setAutoCancel(true);
                                 NotificationManagerCompat.from(context).notify(ran,notification.build());
-
+                                System.out.println("HELLO"+symbol.get(i)+" has reached higher than your alert price of " + alertPrice.get(i));
                                 alertDB.deleteRow(String.valueOf(alert_id.get(i)));
                                 String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
                                 AlertsCompletedDatabaseHelper alertCompletedDB = new AlertsCompletedDatabaseHelper(context);
@@ -155,6 +155,7 @@ public class ExecutableService extends BroadcastReceiver {
                                 Notification.Builder notification = new Notification.Builder
                                         (context, CHANNEL_ID).setContentTitle("PRICE ALERT").setContentText(symbol.get(i)+" has reached lower than your alert price of " + alertPrice.get(i)).setSmallIcon(R.drawable.ic_launcher_background).setAutoCancel(true);
                                 NotificationManagerCompat.from(context).notify(ran,notification.build());
+                                System.out.println("HELLO"+symbol.get(i)+" has reached lower than your alert price of " + alertPrice.get(i));
                                 alertDB.deleteRow(String.valueOf(alert_id.get(i)));
                                 String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
                                 AlertsCompletedDatabaseHelper alertCompletedDB = new AlertsCompletedDatabaseHelper(context);

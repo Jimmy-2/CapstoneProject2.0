@@ -9,12 +9,12 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_portfolio"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="Portfolio"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_news"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_menu_view"
         android:title="News"
         app:showAsAction="always" />
 </menu>

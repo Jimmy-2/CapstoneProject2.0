@@ -353,7 +353,7 @@ public class portfolio extends Fragment {
         pieChart.setDragDecelerationFrictionCoef(0.9f);
         pieChart.setTouchEnabled(true);
         pieChart.setHighlightPerTapEnabled(true);
-
+        pieChart.setDescription("Sectors Percentage");
         pieChart.setOnChartValueSelectedListener(new pieChartOnChartValueSelectedListener());
 
 

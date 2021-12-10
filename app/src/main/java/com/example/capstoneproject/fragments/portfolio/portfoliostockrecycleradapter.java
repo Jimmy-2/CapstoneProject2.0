@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -104,7 +105,7 @@ int position;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView book_id_txt, book_title_txt, book_author_txt, book_pages_txt;
         Button button;
-        ConstraintLayout mainLayout;
+        RelativeLayout mainLayout;
         int position;
         public MyViewHolder(@NonNull View itemView){
             super(itemView);

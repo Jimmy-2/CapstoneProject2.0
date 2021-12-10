@@ -69,7 +69,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
-                android:background="#FFEB3B"
+                android:background="#D3DCB951"
                 android:gravity="center"
                 android:text="AAPL"
                 android:textSize="30sp" />
@@ -82,7 +82,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
                 android:layout_toStartOf="@+id/view6"
-                android:background="#FFEB3B"
+                android:background="#D3DCB951"
                 android:gravity="center"
                 android:text="Apple Inc"
                 android:textSize="10sp" />

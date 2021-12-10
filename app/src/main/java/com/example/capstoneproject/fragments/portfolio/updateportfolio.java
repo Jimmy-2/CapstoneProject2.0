@@ -294,7 +294,7 @@ public class updateportfolio extends AppCompatActivity {
             pages_input.setText(pages);
             //Log.d("stev", title + " " + author + " " + pages);
         } else {
-            Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
         }
     }
 

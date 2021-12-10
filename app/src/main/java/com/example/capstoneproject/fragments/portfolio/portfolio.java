@@ -364,7 +364,7 @@ public class portfolio extends Fragment {
         Cursor cursor = myDB.readAllData();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
                 stockId.add(cursor.getString(0));
@@ -626,7 +626,7 @@ public class portfolio extends Fragment {
         Cursor cursor = myDB.readAllData();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
                 book_id.add(cursor.getString(0));
@@ -704,7 +704,7 @@ public class portfolio extends Fragment {
         ArrayList<String> stonks = new ArrayList<>();
         ArrayList<String> testvector = new ArrayList();
         if (cursor.getCount() == 0) {
-            Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
 
@@ -736,7 +736,7 @@ public class portfolio extends Fragment {
                      Cursor cursor3 = myDB.readAllData();
                     int testnum = 0;
                     if (cursor3.getCount() == 0) {
-                        Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
                     } else {
                         while (cursor3.moveToNext()) {
                             testdbthing.updateData(cursor3.getString(0),
@@ -767,7 +767,7 @@ public class portfolio extends Fragment {
         Cursor cursor = myDB.readAllData();
         Double balance = Double.parseDouble("0");
         if (cursor.getCount() == 0) {
-            Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
                 balance = balance + Double.parseDouble(cursor.getString(2)) * Double.parseDouble(cursor.getString(3));

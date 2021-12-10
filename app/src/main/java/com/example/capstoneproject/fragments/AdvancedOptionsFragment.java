@@ -46,12 +46,15 @@ public class AdvancedOptionsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("Issac");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        System.out.println("Issac2");
+
         return inflater.inflate(R.layout.fragment_advanced_options, container, false);
 
     }
@@ -80,10 +83,32 @@ public class AdvancedOptionsFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        tvExclude.setText(sharedPreferences.getString("excludeSource",""));
-        tvItemCount.setText(sharedPreferences.getString("itemCount",""));
-        sbType.setProgress(Integer.parseInt(sharedPreferences.getString("typeFilter","")));
-        sbSentiment.setProgress(Integer.parseInt(sharedPreferences.getString("sentimentFilter","")));
+
+
+        try{
+            tvExclude.setText(sharedPreferences.getString("excludeSource",""));
+        }catch(Exception e){
+            tvExclude.setText("");
+            System.out.println("First launch of app. Shared preferences doesn't exist");
+        }
+        try{
+            tvItemCount.setText(sharedPreferences.getString("itemCount",""));
+        }catch(Exception e){
+            tvItemCount.setText("10");
+        }
+        try{
+            sbType.setProgress(Integer.parseInt(sharedPreferences.getString("typeFilter","")));
+        }catch(Exception e){
+            sbType.setProgress(1);
+        }
+        try{
+            sbSentiment.setProgress(Integer.parseInt(sharedPreferences.getString("sentimentFilter","")));
+        }catch(Exception e){
+            sbSentiment.setProgress(1);
+        }
+        System.out.println("Issac5");
+
+
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override

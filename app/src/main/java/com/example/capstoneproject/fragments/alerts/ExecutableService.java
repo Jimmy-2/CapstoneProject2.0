@@ -91,7 +91,7 @@ public class ExecutableService extends BroadcastReceiver {
 
 
         //api link to get NEW batch stock prices
-        String TEST_API = "https://api.twelvedata.com/price?symbol=" + batchTicker + "&apikey=c2c894e47847490993e8704e2fe75dd6";
+        String TEST_API = "https://api.twelvedata.com/price?symbol=" + batchTicker + "&apikey=1813b5ed31f0483b9abe4ac7eb42b442";
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(TEST_API, new JsonHttpResponseHandler() {

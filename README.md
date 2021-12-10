@@ -27,7 +27,7 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 ### 1. Screen Archetypes
 
 * Home/1st tab: Alerts
-    * 
+    * Users can search for a stock and add an price movement alert for that stock to the alerts list. The app will check every minute(1 min due to api limits) and if a stock reaches the price alert, the user will be notified through a push notification. The completed alert will be automatically put into the complete alerts list with the time the alert was completed. Users can delete alerts from the alerts and completed alerts list as well as sort the lists by date added or by stock name. Clicking on an alert will lead the user to a time series candlestick chart for that alert's stock.
 
 ### 2. Navigation
 

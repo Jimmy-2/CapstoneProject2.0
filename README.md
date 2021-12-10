@@ -50,3 +50,8 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 * 2nd tab - Papertrading: Users can navigate to the timeseries graph screen by clicking on an alert. Users can also add and sell stocks by clicking on the trade button on each stock's row. This will lead to the trade screen.
 * 3rd tab - News: Users can open up a browser version of the news selected.
 * Graph Screen: Users can access a stock's timeseries price chart by clicking an alert from the Alerts screen or a stock from the Papertrading screen. Users can navigate back to the respective screens by clicking on the back button.
+
+
+
+## PGifs (To be added)
+

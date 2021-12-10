@@ -33,7 +33,7 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 * 3rd tab: News
     *  User can search for news pertaining to a stock or stocks which will then fill a recyclerview with articles/videos about that stock(s). The news item includes a title, abstract, sentiment about the article, a thumbnail, and list of associated stocks. The user can then click on a news item to have the associated link opened in their browser or video player. This tab also includes a button that takes the user to an "advanced options" screen, which allows them to save preferences for their search such as how the results will be sorted, which news sources to exclude from the results, how many results to show, what type of sentiment they want to see, and which type of news item (article/video/all) they want to see. 
 * Graph Screen
-    * 
+    * Users can access a 1min, 5min or 10min candlestick chart of the stock's prices. The charts's data are taken from a time series api. Users can click on individual candlesticks to access relevant data for that candleestick such as the high, low, open and volume for that stick.
 
 ### 2. Navigation
 

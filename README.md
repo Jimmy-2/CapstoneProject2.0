@@ -53,5 +53,5 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 
 
 
-## PGifs (To be added)
+## Gifs (To be added)
 

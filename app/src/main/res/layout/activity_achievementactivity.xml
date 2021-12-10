@@ -5,6 +5,7 @@
     android:id="@+id/achievementlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#48A6E8A9"
     tools:context=".fragments.portfolio.achievementactivity">
 
     <androidx.recyclerview.widget.RecyclerView

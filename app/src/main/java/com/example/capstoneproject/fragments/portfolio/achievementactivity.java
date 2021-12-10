@@ -41,7 +41,7 @@ public class achievementactivity extends AppCompatActivity {
         Cursor cursor = myAchievementDB.readAllData();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(achievementactivity.this, "No data", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(achievementactivity.this, "No data", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
                 achievements.add(cursor.getString(1));

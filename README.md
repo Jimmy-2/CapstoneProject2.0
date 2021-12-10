@@ -41,7 +41,7 @@ Stock alerts and papertrading app for Hunter College CSCI Capstone course. Featu
 * Alerts Tab 
 * Papertrading Tab 
 * News Tab
-* Graph Screen - Access from Alerts and Papertrading screens.
+* Graph Screen - Accessed from Alerts and Papertrading screens.
 
 
 **Flow Navigation** (Screen to Screen)

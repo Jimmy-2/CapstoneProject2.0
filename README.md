@@ -57,7 +57,7 @@ Stock alerts and paper trading app for Hunter College CSCI Capstone course. Feat
 
 ##### Alerts screen:
 
-<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen.gif?raw=true' title='Push Notifications' width='' alt='Push Notifications' />    <img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen2.gif?raw=true' title='Data Persistence' width='' alt='Data Persistence' />
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen.gif?raw=true' title='Push Notifications' width='' alt='Push Notifications' />  <img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen2.gif?raw=true' title='Data Persistence' width='' alt='Data Persistence' />
 
 
 ##### Portfolio screen and graphs:

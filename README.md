@@ -53,7 +53,7 @@ Stock alerts and paper trading app for Hunter College CSCI Capstone course. Feat
 
 
 
-## Gifs 
+## Gifs (These gifs are old as the subscription for some of the APIs have ended)
 
 ##### Alerts screen:
 
